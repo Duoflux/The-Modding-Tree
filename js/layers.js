@@ -5,11 +5,9 @@ addLayer("c", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-        points: new Decimal(0),
+        points: new Decimal(20),
         best: new Decimal(0),
         total: new Decimal(0),
-        buyables: {}, // You don't actually have to initialize this one
-        beep: false,
     }},
     color: "#4BDC13",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
@@ -20,3 +18,4 @@ addLayer("c", {
     exponent: 0.5, // Prestige currency exponent
     base: 5, // Only needed for static layers, base of the formula (b^(x^exp))
     roundUpCost: false, // True if the cost needs to be rounded up (use when baseResource is static?)
+})
