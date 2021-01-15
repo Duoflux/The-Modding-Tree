@@ -9,14 +9,51 @@ addLayer("c", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#F0D945",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "materials", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
-    base: 5, // Only needed for static layers, base of the formula (b^(x^exp))
-    roundUpCost: false, // True if the cost needs to be rounded up (use when baseResource is static?)
     row: 0, // Row the layer is in on the tree (0 is the first row)
+    buyables: {
+        rows: 7,
+        cols: 5,
+        11: {
+            title: "Copper", // Optional, displayed at the top in a larger font
+            cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
+                let cost = Decimal(10)
+                return cost.floor()
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = {}
+                if (x.gte(0)) eff.first = Decimal.pow(25, x.pow(1.1))
+                else eff.first = Decimal.pow(1/25, x.times(-1).pow(1.1))
+            },
+            display() { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " coins\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted"
+            },
+            unlocked() { return player[this.layer].unlocked }, 
+            canAfford() {
+                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
+            buy() { 
+                cost = tmp[this.layer].buyables[this.id].cost
+                player[this.layer].points = player[this.layer].points.sub(cost)	
+                player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
+            },
+            buyMax() {}, // You'll have to handle this yourself if you want
+            style: {'height':'222px'},
+            sellOne() {
+                let amount = getBuyableAmount(this.layer, this.id)
+                if (amount.lte(0)) return // Only sell one if there is at least one
+                setBuyableAmount(this.layer, this.id, amount.sub(1))
+                player[this.layer].points = player[this.layer].points.add(this.cost)
+            },
+        },
+    },
 })
