@@ -12,16 +12,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "First layers! Highly subject to change",
+	num: "0.0",
+	name: "First layers! Highly subject to change or be deleted in a fit of frustration",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.<br>
-	<h3>v0.1</h3><br>
-		- Added the "materials" layer.`
+		- The beginning (of my frustration.)<br>`
 
 
 let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
