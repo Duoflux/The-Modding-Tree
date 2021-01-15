@@ -5,8 +5,6 @@ addLayer("c", {
     startData() { return {
         unlocked: true,
         points: new Decimal(20),
-        best: new Decimal(0),
-        total: new Decimal(0),
     }},
     color: "#E8CC42",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
