@@ -4,7 +4,7 @@ addLayer("c", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-        points: new Decimal(0),
+        points: new Decimal(20),
         best: new Decimal(0),
         total: new Decimal(0),
     }},
