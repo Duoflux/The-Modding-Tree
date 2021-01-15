@@ -11,11 +11,12 @@ addLayer("c", {
     }},
     color: "#4BDC13",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
-    resource: "lollipops", // Name of prestige currency
-    baseResource: "candies", // Name of resource prestige is based on
+    resource: "materials", // Name of prestige currency
+    baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
     base: 5, // Only needed for static layers, base of the formula (b^(x^exp))
     roundUpCost: false, // True if the cost needs to be rounded up (use when baseResource is static?)
+    row: 0, // Row the layer is in on the tree (0 is the first row)
 })
