@@ -12,16 +12,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1",
+	name: "First layers! Highly subject to change",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0</h3><br>
 		- Added things.<br>
-		- Added stuff.`
+		- Added stuff.
+	<h3>v0.1</h3><br>
+		- Added the "materials" layer.`
 
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+
+let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
