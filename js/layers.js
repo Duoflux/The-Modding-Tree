@@ -23,15 +23,8 @@ addLayer("c", {
         return new Decimal(1)
     },
     buyables: {
-        rows: 1,
-        cols: 12,
-        showRespec: true,
-        respec() { // Optional, reset things and give back your currency. Having this function makes a respec button appear
-            player[this.layer].points = player[this.layer].points.add(player[this.layer].spentOnBuyables) // A built-in thing to keep track of this but only keeps a single value
-            resetBuyables(this.layer)
-            doReset(this.layer, true) // Force a reset
-        },
-        respecText: "Get Copper", // Text on Respec button, optional
+        rows: 7,
+        cols: 5,
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -41,8 +34,8 @@ addLayer("c", {
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
-                if (x.gte(0)) eff.first = Decimal.pow(25, x.pow(1.1))
-                else eff.first = Decimal.pow(1/25, x.times(-1).pow(1.1))
+                if (x.gte(0)) eff.first = Decimal(0)
+                else eff.first = Decimal(0)
             
                 if (x.gte(0)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
@@ -50,9 +43,9 @@ addLayer("c", {
             },
             display() { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                return "Cost: " + format(data.cost) + " lollipops\n\
+                return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " things and multiplies stuff by " + format(data.effect.second)
+                Adds + " + format(data.effect.first) + " Copper " + format(data.effect.second)
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
