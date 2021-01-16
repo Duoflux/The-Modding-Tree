@@ -122,7 +122,8 @@ addLayer("Fi", {
         total: new Decimal(0),
     }},
     color: "#E2BA36",
-    requires() {return hasBuyableAmount(2)}, // Can be a function that takes requirement increases into account
+    layerShown() {return player.buyables.gte(2)||
+    player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     resource: "swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
