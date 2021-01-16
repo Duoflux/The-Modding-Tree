@@ -104,25 +104,3 @@ addLayer("c", {
         },
     },
 })
-addLayer("Fi", {
-    layer: "fi", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
-    name: "first rank", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "Fi", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    startData() { return {
-        unlocked: false,
-        points: new Decimal(0),
-        best: new Decimal(0),
-        total: new Decimal(0),
-    }},
-    color: "#E2BA36",
-    layerShown() {return player.buyables.gte(2)||
-    player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
-    resource: "swords", // Name of prestige currency
-    baseResource: "coins", // Name of resource prestige is based on
-    baseAmount() {return player.points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
-    row: 1, // Row the layer is in on the tree (0 is the first row)
-
-})
