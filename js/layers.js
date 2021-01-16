@@ -123,5 +123,49 @@ addLayer("Fi", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
     row: 1, // Row the layer is in on the tree (0 is the first row)
-
+    buyables: {
+        rows: 1,
+        cols: 4,
+        11: {
+            title: "Copper Sword", // Optional, displayed at the top in a larger font
+            cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
+                if (getBuyableAmount(this.layer, this.id).lt(51)) return new Decimal(10)
+                if (x.gte(51)) x = x.pow(2).div(25)
+                let cost = Decimal.pow(2, x.pow(1.5))
+                return cost.floor()
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = {}
+                if (x.gte(51)) eff.first = Decimal.pow(25, x.pow(1.1))
+                else eff.first = Decimal.add(1)
+            
+                if (x.gte(51)) eff.second = x.pow(0.8)
+                else eff.second = x.times(-1).pow(0.8).times(-1)
+                return eff;
+            },
+            display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value"
+            },
+            unlocked() { return player[this.layer].unlocked }, 
+            canAfford() {
+                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
+            },
+            buy() { 
+                cost = tmp[this.layer].buyables[this.id].cost
+                player[this.layer].points = player[this.layer].points.sub(cost)
+                player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+            },
+            buyMax() {}, // You'll have to handle this yourself if you want
+            style: {'height':'222px'},
+            sellOne() {
+                let amount = getBuyableAmount(this.layer, this.id)
+                if (amount.lte(0)) return // Only sell one if there is at least one
+                setBuyableAmount(this.layer, this.id, amount.sub(1))
+                player[this.layer].points = player[this.layer].points.add(this.cost)
+            },
+        },
+    },
 })
