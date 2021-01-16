@@ -23,19 +23,24 @@ addLayer("c", {
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                let cost = Decimal(10)
+                if (x.gte(25)) x = x.pow(2).div(25)
+                let cost = Decimal.pow(2, x.pow(1.5))
                 return cost.floor()
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 if (x.gte(0)) eff.first = Decimal.pow(25, x.pow(1.1))
                 else eff.first = Decimal.pow(1/25, x.times(-1).pow(1.1))
+            
+                if (x.gte(0)) eff.second = x.pow(0.8)
+                else eff.second = x.times(-1).pow(0.8).times(-1)
+                return eff;
             },
             display() { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted"
+                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted " + format(data.effect.second)
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
@@ -55,5 +60,5 @@ addLayer("c", {
                 player[this.layer].points = player[this.layer].points.add(this.cost)
             },
         },
-    },
+    }
 })
