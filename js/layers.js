@@ -9,10 +9,10 @@ addLayer("c", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#F0D945",
+    color: "#E2BA36",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
-    resource: "materials", // Name of prestige currency
-    baseResource: "coins", // Name of resource prestige is based on
+    resource: "coins", // Name of prestige currency
+    baseResource: "fame", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
@@ -50,7 +50,6 @@ addLayer("c", {
             buy() { 
                 cost = tmp[this.layer].buyables[this.id].cost
                 player[this.layer].points = player[this.layer].points.sub(cost)
-                player.points = player.points.sub(cost)
             },
             buyMax() {}, // You'll have to handle this yourself if you want
             style: {'height':'222px'},
@@ -58,8 +57,48 @@ addLayer("c", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.points = player.points.add(this.cost)
+                player[this.layer].points = player[this.layer].points.add(this.cost)
             },
         },
-    }
+        12: {
+            title: "Tin",
+            cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
+                if (getBuyableAmount(this.layer, this.id).lt(51)) return new Decimal(20)
+                if (x.gte(51)) x = x.pow(2).div(25)
+                let cost = Decimal.pow(2, x.pow(1.5))
+                    return cost.floor()
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = {}
+                if (x.gte(0)) eff.first = Decimal.pow(25, x.pow(1.1))
+                else eff.first = Decimal.pow(1/25, x.times(-1).pow(1.1))
+            
+                if (x.gte(0)) eff.second = x.pow(0.8)
+                else eff.second = x.times(-1).pow(0.8).times(-1)
+                return eff;
+            },
+            display() { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " coins\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted " + format(data.effect.second)
+            },
+            unlocked() { return player[this.layer].unlocked }, 
+            canAfford() {
+                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
+            },
+            buy() { 
+                cost = tmp[this.layer].buyables[this.id].cost
+                player[this.layer].points = player[this.layer].points.sub(cost)
+            },
+            buyMax() {}, // You'll have to handle this yourself if you want
+            style: {'height':'222px'},
+            sellOne() {
+                let amount = getBuyableAmount(this.layer, this.id)
+                if (amount.lte(0)) return // Only sell one if there is at least one
+                setBuyableAmount(this.layer, this.id, amount.sub(1))
+                player[this.layer].points = player[this.layer].points.add(this.cost)
+            },
+        },
+    },
 })
