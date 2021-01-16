@@ -2,10 +2,10 @@ let modInfo = {
 	name: "Badass Blacksmith Quest: The Tree",
 	id: "TastyBBQTree",
 	author: "Duoflux",
-	pointsName: "coins",
+	pointsName: "fame",
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (20), // Used for hard resets and new players
+	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	
 	offlineLimit: 1,  // In hours
 }
@@ -41,7 +41,7 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(0)
+	let gain = new Decimal(0.1)
 	return gain
 }
 
