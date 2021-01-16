@@ -45,12 +45,13 @@ addLayer("c", {
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
-                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
+                
+                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
+            },
             buy() { 
                 cost = tmp[this.layer].buyables[this.id].cost
-                player[this.layer].points = player[this.layer].points.sub(cost)	
-                player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
+                player[this.layer].points = player[this.layer].points.sub(cost)
+                player.points = player.points.sub(cost)
             },
             buyMax() {}, // You'll have to handle this yourself if you want
             style: {'height':'222px'},
