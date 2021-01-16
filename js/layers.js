@@ -45,7 +45,6 @@ addLayer("c", {
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
-                
                 return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
             },
             buy() { 
@@ -59,7 +58,7 @@ addLayer("c", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player[this.layer].points = player[this.layer].points.add(this.cost)
+                player.points = player.points.add(this.cost)
             },
         },
     }
