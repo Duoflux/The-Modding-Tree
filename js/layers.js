@@ -24,7 +24,7 @@ addLayer("c", {
             title: "Copper", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 if (x.gte(25)) x = x.pow(2).div(25)
-                let cost = Decimal.pow(2, x.pow(1.5))
+                let cost = Decimal(10)
                 return cost.floor()
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
