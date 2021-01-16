@@ -34,6 +34,7 @@ addLayer("c", {
                 else eff.first = Decimal.add(1)
             
                 if (x.gte(51)) eff.second = x.pow(0.8)
+                else eff.second = x.times(-1).pow(0.8).times(-1)
                 return eff;
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
@@ -41,6 +42,9 @@ addLayer("c", {
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted " + format(data.effect.second)
+                else return "Cost: " + format(data.cost) + "coins\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect.first) + "copper; 2 copper can be Crafted "
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
@@ -70,18 +74,21 @@ addLayer("c", {
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
-                if (x.gte(0)) eff.first = Decimal.pow(25, x.pow(1.1))
-                else eff.first = Decimal.pow(1/25, x.times(-1).pow(1.1))
+                if (x.gte(51)) eff.first = Decimal.pow(25, x.pow(1.1))
+                else eff.first = Decimal.add(1)
             
-                if (x.gte(0)) eff.second = x.pow(0.8)
+                if (x.gte(51)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
                 return eff;
             },
-            display() { // Everything else displayed in the buyable button after the title
+            display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                return "Cost: " + format(data.cost) + " coins\n\
+                if (x.gte(51)) return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted " + format(data.effect.second)
+                else return "Cost: " + format(data.cost) + "coins\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect.first) + "tin; 2 tin can be Crafted "
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
@@ -102,4 +109,25 @@ addLayer("c", {
             },
         },
     },
+})
+addLayer("Fi", {
+    layer: "fi", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
+    name: "first rank", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "Fi", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+    }},
+    color: "#E2BA36",
+    requires() {return hasBuyableAmount(2)}, // Can be a function that takes requirement increases into account
+    resource: "swords", // Name of prestige currency
+    baseResource: "coins", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.5, // Prestige currency exponent
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+
 })
