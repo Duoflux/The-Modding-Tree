@@ -41,10 +41,7 @@ addLayer("c", {
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted " + format(data.effect.second)
-                else return "Cost: " + format(data.cost) + "coins\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + "copper; 2 copper can be Crafted "
+                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted "
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
@@ -85,10 +82,7 @@ addLayer("c", {
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(51)) return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted " + format(data.effect.second)
-                else return "Cost: " + format(data.cost) + "coins\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + "tin; 2 tin can be Crafted "
+                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted "
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
