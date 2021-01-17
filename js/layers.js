@@ -104,7 +104,7 @@ addLayer("c", {
         },
     },
 })
-addLayer("Cu", {
+addLayer("cu", {
     layer: "cu", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
     name: "copper", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "Cu", // This appears on the layer's node. Default is the id with the first letter capitalized
