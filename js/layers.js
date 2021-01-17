@@ -104,10 +104,10 @@ addLayer("c", {
         },
     },
 })
-addLayer("Fi", {
-    layer: "fi", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
-    name: "first rank", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "Fi", // This appears on the layer's node. Default is the id with the first letter capitalized
+addLayer("Cu", {
+    layer: "cu", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
+    name: "copper", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "Cu", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: false,
@@ -115,7 +115,7 @@ addLayer("Fi", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#E2BA36",
+    color: "#3C7E82",
     layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     resource: "saved swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
