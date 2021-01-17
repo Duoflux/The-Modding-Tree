@@ -117,9 +117,9 @@ addLayer("Fi", {
     }},
     color: "#E2BA36",
     layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
-    resource: "swords", // Name of prestige currency
+    resource: "saved swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
-    baseAmount() {return player.points}, // Get the current amount of baseResource
+    baseAmount() {return player.c.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
     row: 1, // Row the layer is in on the tree (0 is the first row)
