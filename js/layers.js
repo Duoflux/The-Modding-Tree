@@ -116,7 +116,11 @@ addLayer("cu", {
         total: new Decimal(0),
     }},
     color: "#3C7E82",
-    layerShown() {return getBuyableAmount("c",11).gte(2) || player.cu.unlocked}, // Can be a function that takes requirement increases into account
+    update() {
+        if (getBuyableAmount("c",11).gte(2))
+        player[this.layer].unlocked = true
+    },
+    layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     resource: "saved swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
