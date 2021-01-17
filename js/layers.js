@@ -22,6 +22,7 @@ addLayer("c", {
         cols: 5,
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
+            color: "#3C7E82",
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 if (getBuyableAmount(this.layer, this.id).lt(51)) return new Decimal(10)
                 if (x.gte(51)) x = x.pow(2).div(25)
@@ -63,6 +64,7 @@ addLayer("c", {
         },
         12: {
             title: "Tin",
+            color: "6B6B63",
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 if (getBuyableAmount(this.layer, this.id).lt(51)) return new Decimal(20)
                 if (x.gte(51)) x = x.pow(2).div(25)
