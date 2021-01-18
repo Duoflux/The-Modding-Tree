@@ -156,15 +156,20 @@ addLayer("cu", {
                 Value: " + new Decimal(100) + " coins"
             },
             unlocked() { return player[this.layer].unlocked }, 
+            // Returns the cost, in this case the cost is always 2.
+            // Other example of costs:
+            //     new Decimal(1).mul(Decimal.pow(10, getBuyableAmount(this.layer, this.id))) [1, 10, 100...]
+            //     new Decimal(2).mul(getBuyableAmount(this.layer, this.id).add(1))           [2, 4, 6, 8...]
             canAfford() {
-                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
+                return getBuyableAmount("c",11).gte(this.cost());
             },
-            buy() { 
-                setBuyableAmount("c",11,getBuyableAmount("c",11).sub(Decimal(2)))
-                cost = tmp[this.layer].buyables[this.id].cost
-                player[this.layer].points = player[this.layer].points.sub(cost)
-                player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+            // Checks the other buyable to see if it is larger than the cost.
+            buy() {
+                setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()));
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
             },
+            // Subtracts the cost from the other buyable.
+            // Then adds 1 to this buyable.
             buyMax() {}, // You'll have to handle this yourself if you want
             style: {'height':'222px'},
             sellOne() {
