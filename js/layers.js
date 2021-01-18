@@ -160,10 +160,10 @@ addLayer("cu", {
                 return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
             },
             buy() { 
+                setBuyableAmount("c",11,getBuyableAmount("c",11).sub(Decimal(2)))
                 cost = tmp[this.layer].buyables[this.id].cost
                 player[this.layer].points = player[this.layer].points.sub(cost)
                 player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                setBuyableAmount("c",11,Decimal(2))
             },
             buyMax() {}, // You'll have to handle this yourself if you want
             style: {'height':'222px'},
