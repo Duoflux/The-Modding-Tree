@@ -12,13 +12,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "First layers! Highly subject to change or be deleted in a fit of frustration",
+	num: "0.0.1",
+	name: "Basic progression chain!",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0</h3><br>
-		- The beginning (of my frustration.)<br>`
+		- The beginning (of my frustration.)<br>
+	<h3>v0.0.1</h3><br>
+		- You can perform the most basic progressions now. I guess technically that's a game?`
 
 
 let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
