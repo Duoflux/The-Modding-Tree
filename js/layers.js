@@ -152,7 +152,8 @@ addLayer("cu", {
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value"
+                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
+                Value: " + new Decimal(100) + "coins"
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
@@ -171,7 +172,7 @@ addLayer("cu", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player[this.layer].points = player[this.layer].points.add(this.cost)
+                player.c.points = player.c.points.add(Decimal(100))
             },
         },
     },
