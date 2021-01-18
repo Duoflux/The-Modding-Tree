@@ -153,7 +153,7 @@ addLayer("cu", {
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
-                Value: " + new Decimal(100) + "coins"
+                Value: " + new Decimal(100) + " coins"
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
