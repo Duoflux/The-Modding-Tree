@@ -208,6 +208,16 @@ addLayer("m", {
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
     baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
+    doReset(layer) {
+        // doReset is called whenever a layer of higher or equal row resets.
+        // layer is the id of the layer that reset.
+        if (layer == this.layer) {
+            // Only when this layer is reset.
+            setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(this.requires))
+            // Subtract from the number of buyables the cost.
+            // You could also set it to 0 or anything else like that.
+        }
+    },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
     base: 5, // Only needed for static layers, base of the formula (b^(x^exp))
