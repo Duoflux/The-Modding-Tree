@@ -45,7 +45,7 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(0.1)
+	let gain = new Decimal(0)
 	return gain
 }
 
