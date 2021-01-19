@@ -216,7 +216,7 @@ addLayer("m", {
             setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(this.requires));
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
-            getPointGen(gain = new Decimal(0.1))
+            getPointGen(new Decimal(0.1))
         }
     },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
