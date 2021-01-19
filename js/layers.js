@@ -2,7 +2,7 @@ addLayer("c", {
     layer: "c", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
     name: "coins", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
         points: new Decimal(20),
@@ -117,11 +117,11 @@ addLayer("cu", {
         total: new Decimal(0),
     }},
     color: "#3C7E82",
+    layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     update() {
         if (getBuyableAmount("c",11).gte(2))
         player[this.layer].unlocked = true
     },
-    layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     resource: "saved swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
@@ -180,3 +180,51 @@ addLayer("cu", {
         },
     },
 })
+addLayer("m", {
+    layer: "m", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
+    name: "Museum", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "M", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+        buyables: {}, // You don't actually have to initialize this one
+        beep: false,
+    }},
+    color: "#4BDC13",
+    layerShown() {
+        return true
+    },
+    update() {
+        if (getBuyableAmount("cu",11).gte(1))
+        player[this.layer].unlocked = true
+    },
+    tooltipLocked() {
+        return "Sell one sword"
+    },
+    requires: new Decimal(10), // Can be a function that takes requirement increases into account
+    resource: "donations", // Name of prestige currency
+    baseResource: "crafted swords", // Name of resource prestige is based on
+    baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.5, // Prestige currency exponent
+    base: 5, // Only needed for static layers, base of the formula (b^(x^exp))
+    roundUpCost: false, // True if the cost needs to be rounded up (use when baseResource is static?)
+
+    // For normal layers, gain beyond [softcap] points is put to the [softcapPower]th power
+    softcap: new Decimal(1e100), 
+    softcapPower: new Decimal(0.5), 
+    canBuyMax() {}, // Only needed for static layers with buy max
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        if (hasUpgrade(this.layer, 166)) mult = mult.times(2) // These upgrades don't exist
+        if (hasUpgrade(this.layer, 120)) mult = mult.times(upgradeEffect(this.layer, 120))
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 0, // Row the layer is in on the tree (0 is the first row)
+    })
