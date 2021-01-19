@@ -202,7 +202,7 @@ addLayer("m", {
         player[this.layer].unlocked = true
     },
     tooltipLocked() {
-        return "Sell one sword"
+        return "Craft one sword"
     },
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
