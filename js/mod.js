@@ -22,7 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0.1</h3><br>
 		- You can perform the most basic progressions now. I guess technically that's a game?
 	<h3>v.0.2</h3><br>
-		- Added the museum. Now you can get more famous by dumping swords on some hapless shmuck.`
+		- Added the museum. Now you can get more famous by dumping swords on some hapless shmuck. (Eventually)`
 
 
 let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
