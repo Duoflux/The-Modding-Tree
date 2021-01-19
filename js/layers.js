@@ -122,7 +122,7 @@ addLayer("cu", {
         if (getBuyableAmount("c",11).gte(2))
         player[this.layer].unlocked = true
     },
-    resource: "saved swords", // Name of prestige currency
+    resource: "copper swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
     exponent: 0.5, // Prestige currency exponent
@@ -216,13 +216,11 @@ addLayer("m", {
             setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(this.requires));
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
-            getPointGen(new Decimal(0.1))
+            getPointGen(new Decimal(0.1)) // Supposed to increase fame gain on prestige, currently doing nothing.
         }
     },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
-    base: 5, // Only needed for static layers, base of the formula (b^(x^exp))
-    roundUpCost: false, // True if the cost needs to be rounded up (use when baseResource is static?)
 
     // For normal layers, gain beyond [softcap] points is put to the [softcapPower]th power
     softcap: new Decimal(1e100), 
