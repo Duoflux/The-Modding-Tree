@@ -207,13 +207,16 @@ addLayer("m", {
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
     baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
+    getCost(amount) {
+        return amount.pow(2).times(10);
+    },
     doReset(layer) {
         // doReset is called whenever a layer of higher or equal row resets.
         // layer is the id of the layer that reset.
         if (layer == this.layer) {
             // Only when this layer is reset.
             setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(this.requires));
-            player.cu.points = player.cu.points.sub(this.requires)
+            player.cu.points = player.cu.points.sub(this.getCost(getResetGain("cu")))
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
             player.prestigeFame = true //  Increases fame gain on prestige
