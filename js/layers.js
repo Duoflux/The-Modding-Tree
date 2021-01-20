@@ -136,9 +136,7 @@ addLayer("cu", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 eff.first = new Decimal(1)
-            
-                if (x.gte(51)) eff.second = x.pow(0.8)
-                else eff.second = x.times(-1).pow(0.8).times(-1)
+                eff.second = player.cu.points.add(1)
                 return eff;
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
