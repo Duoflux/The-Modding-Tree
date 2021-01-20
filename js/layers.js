@@ -263,9 +263,7 @@ addLayer("m", {
             description: "Double fame gain every second.",
             cost: new Decimal(1),
             unlocked() {return hasMilestone(this.layer, 0)}, // The upgrade is only visible when this is true
-            effect() {
-                player.prestigeFame = player.prestigeFame.times(2)
-            },
+            effect: 2
         },
     },
 })
