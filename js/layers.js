@@ -160,6 +160,8 @@ addLayer("cu", {
             buy() {
                 setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()));
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+                player[this.layer].points = player[this.layer].points.add(1);
+                player[this.layer].best = player[this.layer].best.add(1);
                 player[this.layer].total = player[this.layer].total.add(1);
             },
             // Subtracts the cost from the other buyable.
