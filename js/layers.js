@@ -119,7 +119,7 @@ addLayer("cu", {
         if (getBuyableAmount("c",11).gte(2))
         player[this.layer].unlocked = true
     },
-    resource: "copper swords", // Name of prestige currency
+    resource: "crafted swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
     exponent: 0.5, // Prestige currency exponent
@@ -228,7 +228,7 @@ addLayer("m", {
     canBuyMax() {}, // Only needed for static layers with buy max
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        if (hasUpgrade(this.layer, 166)) mult = mult.times(2) // These upgrades don't exist
+        if (hasMilestone(this.layer, 0)) mult = mult.times(2)
         if (hasUpgrade(this.layer, 120)) mult = mult.times(upgradeEffect(this.layer, 120))
         return mult
     },
@@ -236,4 +236,23 @@ addLayer("m", {
         return new Decimal(1)
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
-    })
+    milestones: {
+        0: {requirementDescription: "3 donations",
+            done() {return player[this.layer].best.gte(3)}, // Used to determine when to give the milestone
+            effectDescription: "The museum can fill a weapon rack now. Double fame gain",
+        },
+        1: {requirementDescription: "4 Lollipops",
+            unlocked() {return hasMilestone(this.layer, 0)},
+            done() {return player[this.layer].best.gte(4)},
+            effectDescription: "You can toggle beep and boop (which do nothing)",
+            toggles: [
+                ["c", "beep"], // Each toggle is defined by a layer and the data toggled for that layer
+                ["f", "boop"]],
+            style() {                     
+                if(hasMilestone(this.layer, this.id)) return {
+                    'background-color': '#1111DD' 
+            }},
+    
+            },
+    },
+})
