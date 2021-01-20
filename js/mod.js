@@ -47,7 +47,7 @@ function getPointGen() {
 
 	let gain = new Decimal(0)
 	player.prestigeFame; 
-	{gain = new Decimal(0.1)}
+	{gain = new Decimal.add(0.1).mult(player[this.layer].points)}
 	return gain
 }
 
