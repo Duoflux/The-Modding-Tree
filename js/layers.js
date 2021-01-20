@@ -136,7 +136,6 @@ addLayer("cu", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 eff.first = Decimal.add(1)
-                player[this.layer].total = player[this.layer].total.add(1)
             
                 if (x.gte(51)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
@@ -161,6 +160,7 @@ addLayer("cu", {
             buy() {
                 setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()));
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+                player[this.layer].total = player[this.layer].total.add(1);
             },
             // Subtracts the cost from the other buyable.
             // Then adds 1 to this buyable.
