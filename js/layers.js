@@ -192,7 +192,7 @@ addLayer("m", {
         buyables: {}, // You don't actually have to initialize this one
         beep: false,
     }},
-    color: "#4BDC13",
+    color: "#C2C0BB",
     layerShown() {
         return true
     },
