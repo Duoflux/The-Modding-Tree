@@ -173,6 +173,8 @@ addLayer("cu", {
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
                 player.c.points = player.c.points.add(new Decimal(100))
+                player[this.layer].points = player[this.layer].points.sub(1)
+                player[this.layer].best = player[this.layer].best.sub(1)
             },
         },
     },
