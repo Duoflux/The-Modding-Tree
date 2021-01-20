@@ -158,11 +158,11 @@ addLayer("cu", {
             },
             // Checks the other buyable to see if it is larger than the cost.
             buy() {
-                setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()));
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
-                player[this.layer].points = player[this.layer].points.add(1);
-                player[this.layer].best = player[this.layer].best.add(1);
-                player[this.layer].total = player[this.layer].total.add(1);
+                setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()))
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].points = player[this.layer].points.add(1)
+                player[this.layer].best = player[this.layer].best.add(1)
+                player[this.layer].total = player[this.layer].total.add(1)
             },
             // Subtracts the cost from the other buyable.
             // Then adds 1 to this buyable.
@@ -174,7 +174,7 @@ addLayer("cu", {
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
                 player.c.points = player.c.points.add(new Decimal(100))
                 player[this.layer].points = player[this.layer].points.sub(1)
-                player[this.layer].best = player[this.layer].best.sub(1)
+                player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
         },
     },
