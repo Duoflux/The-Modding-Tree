@@ -239,7 +239,7 @@ addLayer("m", {
     milestones: {
         0: {requirementDescription: "3 donations",
             done() {return player[this.layer].best.gte(3)}, // Used to determine when to give the milestone
-            effectDescription: "The museum can fill a weapon rack now. Double fame gain",
+            effectDescription: "The museum can fill a weapon rack now.",
         },
         1: {requirementDescription: "4 Lollipops",
             unlocked() {return hasMilestone(this.layer, 0)},
@@ -254,5 +254,58 @@ addLayer("m", {
             }},
     
             },
+    },
+    upgrades: {
+        rows: 2,
+        cols: 3,
+        11: {
+            title: "Weapon Rack",
+            description: "Double fame gain every second.",
+            cost: new Decimal(1),
+            unlocked() {return hasMilestone(this.layer, 0)}, // The upgrade is only visible when this is true
+            effect() {
+                player.prestigeFame = player.prestigeFame.times(2)
+            }
+        },
+        12: {
+            description: "Candy generation is faster based on your unspent Lollipops.",
+            cost: new Decimal(1),
+            unlocked() { return (hasUpgrade(this.layer, 11))},
+            effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
+                let ret = player[this.layer].points.add(1).pow(player[this.layer].upgrades.includes(24)?1.1:(player[this.layer].upgrades.includes(14)?0.75:0.5)) 
+                if (ret.gte("1e20000000")) ret = ret.sqrt().times("1e10000000")
+                return ret;
+            },
+            effectDisplay() { return format(this.effect())+"x" }, // Add formatting to the effect
+        },
+        13: {
+            unlocked() { return (hasUpgrade(this.layer, 12))},
+            onPurchase() { // This function triggers when the upgrade is purchased
+                player[this.layer].unlockOrder = 0
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) return {
+                'background-color': '#1111dd' 
+                }
+                else if (!canAffordUpgrade(this.layer, this.id)) {
+                    return {
+                        'background-color': '#dd1111' 
+                    }
+                } // Otherwise use the default
+            },
+            canAfford(){return player.points.lte(7)},
+            pay(){player.points = player.points.add(7)},
+            fullDisplay: "Only buyable with less than 7 points, and gives you 7 more. Unlocks a secret subtab."
+        },
+        22: {
+            title: "This upgrade doesn't exist",
+            description: "Or does it?.",
+            currencyLocation() {return player[this.layer].buyables}, // The object in player data that the currency is contained in
+            currencyDisplayName: "exhancers", // Use if using a nonstandard currency
+            currencyInternalName: 11, // Use if using a nonstandard currency
+
+            cost: new Decimal(3),
+            unlocked() { return player[this.layer].unlocked }, // The upgrade is only visible when this is true
+        },
     },
 })
