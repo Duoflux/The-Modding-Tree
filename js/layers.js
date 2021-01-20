@@ -117,9 +117,9 @@ addLayer("cu", {
     layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     update() {
         if (getBuyableAmount("c",11).gte(2))
-        player[this.layer].unlocked = true;
+        player[this.layer].unlocked = true
     },
-    resource: "crafted swords", // Name of prestige currency
+    resource: "copper swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
     exponent: 0.5, // Prestige currency exponent
@@ -130,18 +130,20 @@ addLayer("cu", {
         11: {
             title: "Copper Sword", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                getBuyableAmount(this.layer, this.id);
+                getBuyableAmount(this.layer, this.id).lt(26);
                 return new Decimal(2)
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
-                let eff = new Decimal(1)
+                let eff = {}
+                eff.first = new Decimal(1)
+                eff.second = player.cu.points.add(1)
                 return eff;
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
+                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
                 Value: " + new Decimal(100) + " coins"
             },
             unlocked() { return player[this.layer].unlocked }, 
@@ -151,7 +153,8 @@ addLayer("cu", {
             //     new Decimal(2).mul(getBuyableAmount(this.layer, this.id).add(1))           [2, 4, 6, 8...]
             canAfford() {
                 return getBuyableAmount("c",11).gte(this.cost());
-            }, // Checks the other buyable to see if it is larger than the cost.
+            },
+            // Checks the other buyable to see if it is larger than the cost.
             buy() {
                 setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()));
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
@@ -167,9 +170,6 @@ addLayer("cu", {
                 player.c.points = player.c.points.add(new Decimal(100))
             },
         },
-    },
-    update() {
-        getBuyableAmount(this.layer,11) = player[this.layer].points.add(1)
     },
 })
 addLayer("m", {
