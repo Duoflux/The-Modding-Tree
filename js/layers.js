@@ -216,7 +216,7 @@ addLayer("m", {
         if (layer == this.layer) {
             // Only when this layer is reset.
             setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(this.requires));
-            player.cu.points = player.cu.points.sub(this.getCost(getResetGain("cu")))
+            player.cu.points = player.cu.points.sub(this.getCost(getResetGain("m")))
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
             player.prestigeFame = true //  Increases fame gain on prestige
