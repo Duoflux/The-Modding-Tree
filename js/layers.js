@@ -30,8 +30,7 @@ addLayer("c", {
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
-                if (x.gte(51)) eff.first = Decimal.pow(25, x.pow(1.1))
-                else eff.first = Decimal.add(1)
+                eff.first = Decimal.add(1)
             
                 if (x.gte(51)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
