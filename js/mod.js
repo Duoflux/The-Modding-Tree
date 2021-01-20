@@ -48,9 +48,9 @@ function getPointGen() {
 	let gain = new Decimal(0)
 	player.prestigeFame; 
 	{gain = new Decimal(0.1)
-	gain = gain.mul(player.m.points)}
+	gain = gain.times(player.m.points)}
 	if (hasUpgrade(m, 11)) 
-	gain = gain.mult(upgradeEffect(m, 11)) // Check if using mult instead of mul is screwing stuff up.
+	gain = gain.times(upgradeEffect(m, 11)) // Check if using mult instead of mul is screwing stuff up.
 	return gain
 }
 
