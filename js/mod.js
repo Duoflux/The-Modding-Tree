@@ -47,7 +47,8 @@ function getPointGen() {
 
 	let gain = new Decimal(0)
 	player.prestigeFame; 
-	{gain = new Decimal(0.1)}
+	{gain = new Decimal(0.1)
+	gain = gain.mul(player.cu.best)}
 	return gain
 }
 
