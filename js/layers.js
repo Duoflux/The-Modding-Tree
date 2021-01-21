@@ -193,6 +193,7 @@ addLayer("m", {
         beep: false,
     }},
     color: "#C2C0BB",
+    effectDescription() {return ". Each donation increases fame gain by" + format(gain) + "per second."}, // Probably wrong, check this first.
     layerShown() {
         return true
     },
@@ -200,9 +201,7 @@ addLayer("m", {
         if (getBuyableAmount("cu",11).gte(1))
         player[this.layer].unlocked = true
     },
-    tooltipLocked() {
-        return "Craft one sword"
-    },
+    tooltipLocked() {return "Craft one sword"},
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
@@ -242,9 +241,9 @@ addLayer("m", {
     milestones: {
         0: {requirementDescription: "3 donations",
             done() {return player[this.layer].best.gte(3)}, // Used to determine when to give the milestone
-            effectDescription: "The museum can fill a weapon rack now.",
+            effectDescription: "The museum can fill a weapon rack now. Unlocks fame upgrades.",
         },
-        1: {requirementDescription: "4 Lollipops",
+        1: {requirementDescription: "4 donations",
             unlocked() {return hasMilestone(this.layer, 0)},
             done() {return player[this.layer].best.gte(4)},
             effectDescription: "You can toggle beep and boop (which do nothing)",
