@@ -215,7 +215,7 @@ addLayer("m", {
         // layer is the id of the layer that reset.
         if (layer == this.layer) {
             // Only when this layer is reset.
-            setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(this.getCost(getResetGain("m"))));
+            setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(tmp[this.layer].getCost(getResetGain("m"))));
             player.cu.points = player.cu.points.sub(tmp[this.layer].getCost);
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
