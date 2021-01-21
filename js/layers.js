@@ -193,7 +193,7 @@ addLayer("m", {
         beep: false,
     }},
     color: "#C2C0BB",
-    effectDescription() {return ". Each donation increases fame gain by" + format(gain) + "per second."}, // Probably wrong, check this first.
+    effectDescription() {return ". Each donation increases fame gain by X per second. Pester the dev to find out how to display X."},
     layerShown() {
         return true
     },
