@@ -208,7 +208,7 @@ addLayer("m", {
     baseResource: "crafted swords", // Name of resource prestige is based on
     baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
     getCost() {
-        return tmp[this.layer].getResetGain.pow(2).mul(10);
+        return getResetGain(this.layer).pow(2).mul(10);
     },
     doReset(layer) {
         // doReset is called whenever a layer of higher or equal row resets.
