@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2",
-	name: "The museum! Let your mighty deeds of smithing be forever immortalized! (Or just toss all your junk, same thing)",
+	num: "0.2.1",
+	name: "Now the museum has UPGRADES! Or just one",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -21,8 +21,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- The beginning (of my frustration.)<br>
 	<h3>v0.0.1</h3><br>
 		- You can perform the most basic progressions now. I guess technically that's a game?
-	<h3>v.0.2</h3><br>
-		- Added the museum. Now you can get more famous by dumping swords on some hapless shmuck. (Eventually)`
+	<h3>v0.2</h3><br>
+		- Added the museum. Now you can get more famous by dumping swords on some hapless shmuck.
+	<h3>v0.2.1</h3><br>
+		- Adding upgrades to the museum. Now you can get EVEN MORE famous!`
 
 
 let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
