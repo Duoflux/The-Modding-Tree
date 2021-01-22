@@ -218,7 +218,7 @@ addLayer("m", {
         }
     },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
+    exponent: 1, // Prestige currency exponent
 
     // For normal layers, gain beyond [softcap] points is put to the [softcapPower]th power
     softcap: new Decimal(1e100), 
