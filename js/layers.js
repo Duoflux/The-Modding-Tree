@@ -259,21 +259,21 @@ addLayer("m", {
         11: {
             title: "Weapon Rack",
             description: "Double fame gain every second.",
-            cost: new Decimal(1),
+            cost: new Decimal(10),
             unlocked() {return hasMilestone(this.layer, 0)}, // The upgrade is only visible when this is true
             effect: 2
         },
         12: {
             title: "More Racks",
             description: "Increase the effect of Weapon Rack.",
-            cost: new Decimal(1),
+            cost: new Decimal(10),
             unlocked() {return hasUpgrade(this.layer, 11)},
             effect: 2.5
         },
         13: {
             title: "Word-of-Mouth Advertising",
             description: "Fame gain increases based on fame.",
-            cost: new Decimal(3),
+            cost: new Decimal(30),
             unlocked() {return hasUpgrade(this.layer, 12)},
             effect() {
 
