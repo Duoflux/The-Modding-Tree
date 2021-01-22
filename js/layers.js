@@ -77,7 +77,7 @@ addLayer("c", {
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted "
+                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted (not yet)"
             },
             unlocked() { return player[this.layer].unlocked }, 
             canAfford() {
