@@ -193,7 +193,7 @@ addLayer("m", {
         beep: false,
     }},
     color: "#C2C0BB",
-    effectDescription() {return ". Each donation increases fame gain by X per second. Pester the dev to find out how to display X."},
+    effectDescription() {return "Each donation increases fame gain by X per second. Pester the dev to find out how to display X."},
     layerShown() {
         return true
     },
@@ -218,7 +218,6 @@ addLayer("m", {
             player.cu.points = player.cu.points.sub(tmp[this.layer].getCost);
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
-            player.prestigeFame = true //  Increases fame gain on prestige
         }
     },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
@@ -239,8 +238,8 @@ addLayer("m", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     milestones: {
-        0: {requirementDescription: "3 donations",
-            done() {return player[this.layer].best.gte(3)}, // Used to determine when to give the milestone
+        0: {requirementDescription: "1 donation",
+            done() {return player[this.layer].best.gte(1)}, // Used to determine when to give the milestone
             effectDescription: "The museum can fill a weapon rack now. Unlocks fame upgrades.",
         },
         1: {requirementDescription: "4 donations",
