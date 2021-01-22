@@ -263,7 +263,12 @@ addLayer("m", {
             cost: new Decimal(30),
             unlocked() {return hasUpgrade(this.layer, 12)},
             effect() {
-
+                let wom = player.points.add(1).max(1)
+                wom = Decimal.log10(wom).pow(2).add(2)
+                return wom
+            },
+            effectDisplay(){
+                return format(upgradeEffect("m", 13)) + "x" //Check this if code breaks.
             }
         }
     },
