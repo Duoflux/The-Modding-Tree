@@ -259,7 +259,7 @@ addLayer("m", {
     },
     upgrades: {
         rows: 1,
-        cols: 1,
+        cols: 2,
         11: {
             title: "Weapon Rack",
             description: "Double fame gain every second.",
@@ -267,5 +267,14 @@ addLayer("m", {
             unlocked() {return hasMilestone(this.layer, 0)}, // The upgrade is only visible when this is true
             effect: 2
         },
+        12: {
+            title: "List of Copper Swords",
+            description: "Increase fame gain based on crafted copper swords.",
+            cost: new Decimal(5),
+            unlocked() {return hasMilestone(this.layer, 0)},
+            effect() {
+                player.prestigeFame = player.prestigeFame.times(getBuyableAmount("cu", 11).times(0.05)) // if game breaks, look here
+            }
+        }
     },
 })
