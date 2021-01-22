@@ -5,7 +5,7 @@ addLayer("c", {
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-        points: new Decimal(20),
+        points: new Decimal(2),
         best: new Decimal(0),
         total: new Decimal(0),
     }},
@@ -24,7 +24,7 @@ addLayer("c", {
             title: "Copper", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
-                return new Decimal(10)
+                return new Decimal(1)
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
