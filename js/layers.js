@@ -204,7 +204,7 @@ addLayer("m", {
     baseResource: "crafted swords", // Name of resource prestige is based on
     baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
     getCost() {
-        return getResetGain(this.layer).add(1);
+        return getResetGain(this.layer);
     },
     doReset(layer) {
         // doReset is called whenever a layer of higher or equal row resets.
@@ -212,7 +212,7 @@ addLayer("m", {
         if (layer == this.layer) {
             // Only when this layer is reset.
             setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(tmp[this.layer].getCost));
-            player.cu.points = player.cu.points.sub(tmp[this.layer].getCost).add(1);
+            player.cu.points = player.cu.points.sub(tmp[this.layer].getCost);
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
         }
