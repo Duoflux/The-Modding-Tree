@@ -38,23 +38,20 @@ function getStartPoints(){
 }
 
 // Determines if it should show points/sec
-function canGenPoints(){
-	return true
-}
+function canGenPoints(){ 
+	let can = false
+	if (player.m.points.gte(1)) can = true
+	return can
+} // The function "canGenPoints" is turned off until you make your first donation.
 
 // Calculate points/sec!
 function getPointGen() {
-	if(!canGenPoints())
-		return new Decimal(0)
-
-	let gain = new Decimal(0)
-	player.prestigeFame; 
-	{gain = new Decimal(0.1)
-	gain = gain.times(player.m.points)}
+	if(!canGenPoints()) gain = new Decimal(0.1)
+	gain = gain.times(player.m.points)
 	if (hasUpgrade("m", 11)) gain = gain.times(upgradeEffect("m", 11))
 	if (hasUpgrade("m", 12)) gain = gain.times(upgradeEffect("m", 12))
 	return gain
-}
+} // Once canGenPoints turns on, fame gain is 0.1*current number of donations. It can be increased by upgrades.
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
