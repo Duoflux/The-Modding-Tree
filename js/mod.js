@@ -41,7 +41,7 @@ function getStartPoints(){
 function canGenPoints(){ 
 	let can = false
 	if (player.m.points.gte(1)) can = true
-	if (hasUpgrade("m, 11")) can = true
+	if (hasUpgrade("m", 11)) can = true
 	return can
 } // The function "canGenPoints" is turned off until you make your first donation.
 
