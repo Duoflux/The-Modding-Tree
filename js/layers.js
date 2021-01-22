@@ -62,15 +62,12 @@ addLayer("c", {
             title: "Tin",
             color: "#6B6B63",
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                if (getBuyableAmount(this.layer, this.id).lt(51)) return new Decimal(20)
-                if (x.gte(51)) x = x.pow(2).div(25)
-                let cost = Decimal.pow(2, x.pow(1.5))
-                    return cost.floor()
+                getBuyableAmount(this.layer, this.id);
+                return new Decimal(20)
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
-                if (x.gte(51)) eff.first = Decimal.pow(25, x.pow(1.1))
-                else eff.first = Decimal.add(1)
+                eff.first = Decimal.add(1)
             
                 if (x.gte(51)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
@@ -258,7 +255,7 @@ addLayer("m", {
     },
     upgrades: {
         rows: 1,
-        cols: 2,
+        cols: 3,
         11: {
             title: "Weapon Rack",
             description: "Double fame gain every second.",
@@ -272,6 +269,15 @@ addLayer("m", {
             cost: new Decimal(1),
             unlocked() {return hasUpgrade(this.layer, 11)},
             effect: 2.5
+        },
+        13: {
+            title: "Word-of-Mouth Advertising",
+            description: "Fame gain increases based on fame.",
+            cost: new Decimal(3),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+            effect() {
+
+            }
         }
     },
 })
