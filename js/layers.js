@@ -127,7 +127,7 @@ addLayer("cu", {
         11: {
             title: "Copper Sword", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                getBuyableAmount(this.layer, this.id).lt(26);
+                getBuyableAmount(this.layer, this.id);
                 return new Decimal(2)
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -169,7 +169,7 @@ addLayer("cu", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.c.points = player.c.points.add(new Decimal(100))
+                player.c.points = player.c.points.add(new Decimal(10))
                 player[this.layer].points = player[this.layer].points.sub(1)
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
