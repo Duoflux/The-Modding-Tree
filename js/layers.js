@@ -252,10 +252,10 @@ addLayer("m", {
         },
         12: {
             title: "More Racks",
-            description: "Increase the effect of Weapon Rack.",
+            description: "Double fame gain.",
             cost: new Decimal(10),
             unlocked() {return hasUpgrade(this.layer, 11)},
-            effect: 2.5
+            effect: 2
         },
         13: {
             title: "Word-of-Mouth Advertising",
