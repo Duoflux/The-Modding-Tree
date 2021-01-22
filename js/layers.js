@@ -258,7 +258,7 @@ addLayer("m", {
     },
     upgrades: {
         rows: 1,
-        cols: 1,
+        cols: 2,
         11: {
             title: "Weapon Rack",
             description: "Double fame gain every second.",
@@ -266,5 +266,12 @@ addLayer("m", {
             unlocked() {return hasMilestone(this.layer, 0)}, // The upgrade is only visible when this is true
             effect: 2
         },
+        12: {
+            title: "More Racks",
+            description: "Increase the effect of Weapon Rack.",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+            effect: 1.5
+        }
     },
 })
