@@ -46,8 +46,8 @@ function canGenPoints(){
 
 // Calculate points/sec!
 function getPointGen() {
-	if(!canGenPoints()) 
 	let gain = new Decimal(0.1)
+	if(!canGenPoints()) gain = new Decimal(0)
 	gain = gain.times(player.m.points)
 	if (hasUpgrade("m", 11)) gain = gain.times(upgradeEffect("m", 11))
 	if (hasUpgrade("m", 12)) gain = gain.times(upgradeEffect("m", 12))
