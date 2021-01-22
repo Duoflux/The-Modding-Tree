@@ -271,7 +271,7 @@ addLayer("m", {
             description: "Increase the effect of Weapon Rack.",
             cost: new Decimal(1),
             unlocked() {return hasUpgrade(this.layer, 11)},
-            effect: 1.5
+            effect: 2.5
         }
     },
 })
