@@ -258,10 +258,10 @@ addLayer("m", {
         cols: 3,
         11: {
             title: "Weapon Rack",
-            description: "Add 0.1 fame gain per donation every second.",
+            description: "Add 1 fame gain per donation every second.",
             cost: new Decimal(5),
             unlocked() {return hasMilestone(this.layer, 0)}, // The upgrade is only visible when this is true
-            effect: 0.1
+            effect: 1
         },
         12: {
             title: "More Racks",
