@@ -238,8 +238,8 @@ addLayer("m", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     milestones: {
-        0: {requirementDescription: "1 donation",
-            done() {return player[this.layer].best.gte(1)}, // Used to determine when to give the milestone
+        0: {requirementDescription: "2 donations",
+            done() {return player[this.layer].best.gte(2)}, // Used to determine when to give the milestone
             effectDescription: "The museum can fill a weapon rack now. Unlocks fame upgrades.",
         },
         1: {requirementDescription: "4 donations",
