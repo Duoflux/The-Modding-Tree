@@ -239,19 +239,6 @@ addLayer("m", {
             done() {return player[this.layer].best.gte(2)}, // Used to determine when to give the milestone
             effectDescription: "The museum can fill a weapon rack now. Unlocks fame upgrades.",
         },
-        1: {requirementDescription: "100000000 donations",
-            unlocked() {return hasMilestone(this.layer, 0)},
-            done() {return player[this.layer].best.gte(1e8)},
-            effectDescription: "You can toggle beep and boop (which do nothing)",
-            toggles: [
-                ["c", "beep"], // Each toggle is defined by a layer and the data toggled for that layer
-                ["f", "boop"]],
-            style() {                     
-                if(hasMilestone(this.layer, this.id)) return {
-                    'background-color': '#1111DD' 
-            }},
-    
-            },
     },
     upgrades: {
         rows: 1,
