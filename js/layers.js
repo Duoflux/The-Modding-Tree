@@ -199,12 +199,12 @@ addLayer("m", {
         player[this.layer].unlocked = true
     },
     tooltipLocked() {return "Craft one sword"},
-    requires: new Decimal(10), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
     baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
     getCost() {
-        return getResetGain(this.layer).pow(2).mul(10);
+        return getResetGain(this.layer).add(1);
     },
     doReset(layer) {
         // doReset is called whenever a layer of higher or equal row resets.
