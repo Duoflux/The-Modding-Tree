@@ -236,13 +236,14 @@ addLayer("m", {
     },
     update() {
         if (getBuyableAmount("f",11).gte(1))
+        if (getBuyableAmount("f",12).gte(1))
         player[this.layer].unlocked = true
     },
     tooltipLocked() {return "Craft one sword"},
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
-    baseAmount() {return getBuyableAmount("f",11)}, // Get the current amount of baseResource
+    baseAmount() {return getBuyableAmount("f",11).add(getBuyableAmount("f,12"))}, // Get the current amount of baseResource
     getCost() {
         return getResetGain(this.layer);
     },
@@ -252,6 +253,7 @@ addLayer("m", {
         if (layer == this.layer) {
             // Only when this layer is reset.
             setBuyableAmount("f", 11, getBuyableAmount("f", 11).sub(tmp[this.layer].getCost));
+            setBuyableAmount("f", 12, getBuyableAmount("f", 12).sub(tmp[this.layer].getCost)); // Check here if mod breaks
             player.f.points = player.f.points.sub(tmp[this.layer].getCost);
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
