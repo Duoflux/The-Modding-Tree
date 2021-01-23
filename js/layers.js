@@ -253,14 +253,14 @@ addLayer("m", {
         12: {
             title: "More Racks",
             description: "Double base fame gain.",
-            cost: new Decimal(5),
+            cost: new Decimal(3),
             unlocked() {return hasUpgrade(this.layer, 11)},
             effect: 2
         },
         13: {
             title: "Word-of-Mouth Advertising",
             description: "Fame gain increases based on fame.",
-            cost: new Decimal(30),
+            cost: new Decimal(5),
             unlocked() {return hasUpgrade(this.layer, 12)},
             effect() {
                 let wom = player.points.add(1).max(1)
