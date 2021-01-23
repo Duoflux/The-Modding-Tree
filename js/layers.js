@@ -169,7 +169,7 @@ addLayer("cu", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.c.points = player.c.points.add(new Decimal(10))
+                player.c.points = player.c.points.add(new Decimal(3))
                 player[this.layer].points = player[this.layer].points.sub(1)
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
