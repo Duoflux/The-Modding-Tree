@@ -15,7 +15,7 @@ addLayer("c", {
     baseResource: "fame", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.8, // Prestige currency exponent
+    exponent: 0.5, // Prestige currency exponent
     row: 0, // Row the layer is in on the tree (0 is the first row)
     buyables: {
         rows: 7,
@@ -143,7 +143,7 @@ addLayer("cu", {
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
-                Value: " + new Decimal(3) + " coins"
+                Value: " + new Decimal(4) + " coins"
             },
             unlocked() { return player[this.layer].unlocked }, 
             // Returns the cost, in this case the cost is always 2.
@@ -169,7 +169,7 @@ addLayer("cu", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.c.points = player.c.points.add(new Decimal(3))
+                player.c.points = player.c.points.add(new Decimal(4))
                 player[this.layer].points = player[this.layer].points.sub(1)
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
