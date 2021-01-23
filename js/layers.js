@@ -196,7 +196,7 @@ addLayer("f", {
             },
             unlocked() { return player[this.layer].unlocked },
             canAfford() {
-                return getBuyableAmount("v",11).gte(this.cost());
+                return getBuyableAmount("v",12).gte(this.cost());
             },
             buy() {
                 setBuyableAmount("v",12, getBuyableAmount("v",12).sub(this.cost()))
