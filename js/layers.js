@@ -1,7 +1,7 @@
-addLayer("c", {
-    layer: "c", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
-    name: "coins", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
+addLayer("v", {
+    layer: "v", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
+    name: "vendor", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "V", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
@@ -99,10 +99,10 @@ addLayer("c", {
         },
     },
 })
-addLayer("cu", {
-    layer: "cu", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
-    name: "copper", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "Cu", // This appears on the layer's node. Default is the id with the first letter capitalized
+addLayer("f", {
+    layer: "f", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
+    name: "Forge", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "F", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: false,
@@ -111,9 +111,9 @@ addLayer("cu", {
         total: new Decimal(0),
     }},
     color: "#3C7E82",
-    layerShown() {return getBuyableAmount("c",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
+    layerShown() {return getBuyableAmount("v",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     update() {
-        if (getBuyableAmount("c",11).gte(2))
+        if (getBuyableAmount("v",11).gte(2))
         player[this.layer].unlocked = true
     },
     resource: "crafted swords", // Name of prestige currency
@@ -123,7 +123,7 @@ addLayer("cu", {
     row: 1, // Row the layer is in on the tree (0 is the first row)
     buyables: {
         rows: 1,
-        cols: 1,
+        cols: 2,
         11: {
             title: "Copper Sword", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -151,11 +151,11 @@ addLayer("cu", {
             //     new Decimal(1).mul(Decimal.pow(10, getBuyableAmount(this.layer, this.id))) [1, 10, 100...]
             //     new Decimal(2).mul(getBuyableAmount(this.layer, this.id).add(1))           [2, 4, 6, 8...]
             canAfford() {
-                return getBuyableAmount("c",11).gte(this.cost());
+                return getBuyableAmount("v",11).gte(this.cost());
             },
             // Checks the other buyable to see if it is larger than the cost.
             buy() {
-                setBuyableAmount("c",11, getBuyableAmount("c",11).sub(this.cost()))
+                setBuyableAmount("v",11, getBuyableAmount("v",11).sub(this.cost()))
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
                 player[this.layer].points = player[this.layer].points.add(1)
                 player[this.layer].best = player[this.layer].best.add(1)
@@ -169,7 +169,7 @@ addLayer("cu", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.c.points = player.c.points.add(new Decimal(4))
+                player.c.points = player.v.points.add(new Decimal(4))
                 player[this.layer].points = player[this.layer].points.sub(1)
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
@@ -195,14 +195,14 @@ addLayer("m", {
         return true
     },
     update() {
-        if (getBuyableAmount("cu",11).gte(1))
+        if (getBuyableAmount("f",11).gte(1))
         player[this.layer].unlocked = true
     },
     tooltipLocked() {return "Craft one sword"},
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
-    baseAmount() {return getBuyableAmount("cu",11)}, // Get the current amount of baseResource
+    baseAmount() {return getBuyableAmount("f",11)}, // Get the current amount of baseResource
     getCost() {
         return getResetGain(this.layer);
     },
@@ -211,8 +211,8 @@ addLayer("m", {
         // layer is the id of the layer that reset.
         if (layer == this.layer) {
             // Only when this layer is reset.
-            setBuyableAmount("cu", 11, getBuyableAmount("cu", 11).sub(tmp[this.layer].getCost));
-            player.cu.points = player.cu.points.sub(tmp[this.layer].getCost);
+            setBuyableAmount("f", 11, getBuyableAmount("f", 11).sub(tmp[this.layer].getCost));
+            player.f.points = player.f.points.sub(tmp[this.layer].getCost);
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
         }
@@ -242,7 +242,7 @@ addLayer("m", {
     },
     upgrades: {
         rows: 1,
-        cols: 3,
+        cols: 4,
         11: {
             title: "Weapon Rack",
             description: "Add 1 fame per second to base fame gain.",
@@ -268,8 +268,17 @@ addLayer("m", {
                 return wom
             },
             effectDisplay(){
-                return format(upgradeEffect("m", 13)) + "x" //Check this if code breaks.
+                return format(upgradeEffect("m", 13)) + "x"
             }
-        }
+        },
+        14: {
+            title: "Entrance Fees",
+            description: "Decreases coin exponent (get more coins from fame reset) based on donations.",
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+            effect() {
+                
+            }
+        },
     },
 })
