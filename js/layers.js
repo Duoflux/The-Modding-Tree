@@ -140,9 +140,9 @@ addLayer("f", {
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                if (x.gte(0)) return "Cost: " + format(data.cost) + " tin\n\
+                if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " Tin Sword; Sell for coins or Improve to increase value" + "\n\
+                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
                 Value: " + new Decimal(4) + " coins"
             },
             unlocked() { return player[this.layer].unlocked }, 
@@ -164,7 +164,6 @@ addLayer("f", {
             // Subtracts the cost from the other buyable.
             // Then adds 1 to this buyable.
             buyMax() {}, // You'll have to handle this yourself if you want
-            style: {'height':'222px'},
             sellOne() {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
@@ -190,9 +189,9 @@ addLayer("f", {
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
+                if (x.gte(0)) return "Cost: " + format(data.cost) + " tin\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
+                Adds + " + format(data.effect.first) + " Tin Sword; Sell for coins or Improve to increase value" + "\n\
                 Value: " + new Decimal(10) + " coins"
             },
             unlocked() { return player[this.layer].unlocked },
