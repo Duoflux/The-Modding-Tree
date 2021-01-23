@@ -63,7 +63,7 @@ addLayer("v", {
             color: "#6B6B63",
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
-                return new Decimal(20)
+                return new Decimal(8)
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
@@ -169,7 +169,48 @@ addLayer("f", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.c.points = player.v.points.add(new Decimal(4))
+                player.v.points = player.v.points.add(new Decimal(4))
+                player[this.layer].points = player[this.layer].points.sub(1)
+                player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
+            },
+        },
+        12: {
+            title: "Tin Sword",
+            cost(x=player[this.layer].buyables[this.id]) {
+                getBuyableAmount(this.layer, this.id);
+                return new Decimal(2)
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = {}
+                eff.first = Decimal.add(1)
+            
+                if (x.gte(51)) eff.second = x.pow(0.8)
+                else eff.second = x.times(-1).pow(0.8).times(-1)
+                return eff;
+            },
+            display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect.first) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
+                Value: " + new Decimal(10) + " coins"
+            },
+            unlocked() { return player[this.layer].unlocked },
+            canAfford() {
+                return getBuyableAmount("v",11).gte(this.cost());
+            },
+            buy() {
+                setBuyableAmount("v",12, getBuyableAmount("v",12).sub(this.cost()))
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].points = player[this.layer].points.add(1)
+                player[this.layer].best = player[this.layer].best.add(1)
+                player[this.layer].total = player[this.layer].total.add(1)
+            },
+            sellOne() {
+                let amount = getBuyableAmount(this.layer, this.id)
+                if (amount.lte(0)) return // Only sell one if there is at least one
+                setBuyableAmount(this.layer, this.id, amount.sub(1))
+                player.v.points = player.v.points.add(new Decimal(10))
                 player[this.layer].points = player[this.layer].points.sub(1)
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
