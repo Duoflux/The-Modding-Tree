@@ -192,7 +192,7 @@ addLayer("f", {
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " tin\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect.first) + " Tin Sword; Sell for coins or Improve to increase value" + "\n\
-                Value: " + new Decimal(10) + " coins"
+                Value: " + new Decimal(20) + " coins"
             },
             unlocked() { return player[this.layer].unlocked },
             canAfford() {
@@ -209,7 +209,7 @@ addLayer("f", {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
                 setBuyableAmount(this.layer, this.id, amount.sub(1))
-                player.v.points = player.v.points.add(new Decimal(10))
+                player.v.points = player.v.points.add(new Decimal(20))
                 player[this.layer].points = player[this.layer].points.sub(1)
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
