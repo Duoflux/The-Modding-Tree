@@ -118,7 +118,7 @@ addLayer("f", {
     },
     resource: "crafted swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
-    baseAmount() {return player.c.points}, // Get the current amount of baseResource
+    baseAmount() {return player.f.points}, // Get the current amount of baseResource
     exponent: 0.5, // Prestige currency exponent
     row: 1, // Row the layer is in on the tree (0 is the first row)
     buyables: {
