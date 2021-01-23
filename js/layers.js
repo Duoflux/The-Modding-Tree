@@ -252,8 +252,8 @@ addLayer("m", {
         // layer is the id of the layer that reset.
         if (layer == this.layer) {
             // Only when this layer is reset.
-            setBuyableAmount("f", 11) = new Decimal(0);
-            setBuyableAmount("f", 12) = new Decimal(0); // Check here if mod breaks
+            setBuyableAmount("f", 11) = 0;
+            setBuyableAmount("f", 12) = 0; // Check here if mod breaks
             player.f.points = player.f.points.sub(tmp[this.layer].getCost);
             // Subtract from the number of buyables the cost.
             // You could also set it to 0 or anything else like that.
