@@ -239,6 +239,10 @@ addLayer("m", {
         if (getBuyableAmount("f",12).gte(1))
         player[this.layer].unlocked = true
     },
+    onPrestige() {
+        player.f.buyables[11]=0;
+        player.f.buyables[12]=0;
+    },
     tooltipLocked() {return "Craft one sword"},
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
