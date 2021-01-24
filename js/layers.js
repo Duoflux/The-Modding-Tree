@@ -103,7 +103,7 @@ addLayer("f", {
     layer: "f", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
     name: "Forge", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "F", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
@@ -279,7 +279,7 @@ addLayer("m", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
-    row: 0, // Row the layer is in on the tree (0 is the first row)
+    row: 1, // Row the layer is in on the tree (0 is the first row)
     milestones: {
         0: {requirementDescription: "2 donations",
             done() {return player[this.layer].best.gte(2)}, // Used to determine when to give the milestone
