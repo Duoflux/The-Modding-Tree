@@ -149,7 +149,7 @@ addLayer("f", {
             // Checks the other buyable to see if it is larger than the cost.
             buy() {
                 setBuyableAmount("v",11, getBuyableAmount("v",11).sub(this.cost()))
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                setBuyableAmount(this.layer, this.id, new Decimal(getBuyableAmount(this.layer, this.id)).add(1))
                 player[this.layer].points = player[this.layer].points.add(1)
                 player[this.layer].best = player[this.layer].best.add(1)
                 player[this.layer].total = player[this.layer].total.add(1)
@@ -189,7 +189,7 @@ addLayer("f", {
             },
             buy() {
                 setBuyableAmount("v",12, getBuyableAmount("v",12).sub(this.cost()))
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                setBuyableAmount(this.layer, this.id, new Decimal(getBuyableAmount(this.layer, this.id)).add(1))
                 player[this.layer].points = player[this.layer].points.add(1)
                 player[this.layer].best = player[this.layer].best.add(1)
                 player[this.layer].total = player[this.layer].total.add(1)
