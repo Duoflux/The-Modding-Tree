@@ -18,8 +18,8 @@ addLayer("v", {
     exponent: 0.5, // Prestige currency exponent
     row: 0, // Row the layer is in on the tree (0 is the first row)
     buyables: {
-        rows: 7,
-        cols: 5,
+        rows: 1,
+        cols: 2,
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -133,10 +133,6 @@ addLayer("f", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 eff.first = Decimal.add(1)
-            
-                if (x.gte(51)) eff.second = x.pow(0.8)
-                else eff.second = x.times(-1).pow(0.8).times(-1)
-                return eff;
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
