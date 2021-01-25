@@ -224,8 +224,8 @@ addLayer("m", {
         return true
     },
     update() {
-        if (getBuyableAmount("f",11).gte(1))
-        if (getBuyableAmount("f",12).gte(1))
+        if (new Decimal(getBuyableAmount("f",11)).gte(1))
+        if (new Decimal(getBuyableAmount("f",12)).gte(1))
         player[this.layer].unlocked = true
     },
     onPrestige() {
