@@ -236,7 +236,7 @@ addLayer("m", {
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
-    baseAmount: () => {return new Decimal(getBuyableAmount("f",11)).plus(getBuyableAmount("f",12))}, // Get the current amount of baseResource
+    baseAmount() {return new Decimal(getBuyableAmount("f",11)).plus(getBuyableAmount("f",12))}, // Get the current amount of baseResource
     getCost() {
         return getResetGain(this.layer);
     },
