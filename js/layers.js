@@ -178,7 +178,7 @@ addLayer("f", {
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                if (x.gte(0)) return "Cost: " + format(data.cost) + " tin\n\
+                if (new Decimal(x).gte(0)) return "Cost: " + format(data.cost) + " tin\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect) + " Tin Sword; Sell for coins or Improve to increase value" + "\n\
                 Value: " + new Decimal(20) + " coins"
