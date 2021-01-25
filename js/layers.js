@@ -131,9 +131,9 @@ addLayer("f", {
                 let eff = Decimal.add(1)
                 return eff;
             },
-            display(x=getBuyableAmount(this.layer,this.id)) { // Everything else displayed in the buyable button after the title
+            display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                if (x.gte(0)) return "Cost: " + format(data.cost) + " copper\n\
+                if (new Decimal(x).gte(0)) return "Cost: " + format(data.cost) + " copper\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect) + " Copper Sword; Sell for coins or Improve to increase value" + "\n\
                 Value: " + new Decimal(4) + " coins"
