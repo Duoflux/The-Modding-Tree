@@ -247,9 +247,7 @@ addLayer("m", {
             // Only when this layer is reset.
             player.f.points = player.f.points.sub(tmp[this.layer].getCost);
             setBuyableAmount("f",11,0);
-            setBuyableAmount("f",12,0); // Check here if mod breaks
-            // Subtract from the number of buyables the cost.
-            // You could also set it to 0 or anything else like that.
+            setBuyableAmount("f",12,0); // Set the number of buyables to 0.
         }
     },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
@@ -270,8 +268,8 @@ addLayer("m", {
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     milestones: {
-        0: {requirementDescription: "2 donations",
-            done() {return player[this.layer].best.gte(2)}, // Used to determine when to give the milestone
+        0: {requirementDescription: "1 donation",
+            done() {return player[this.layer].best.gte(1)}, // Used to determine when to give the milestone
             effectDescription: "The museum can fill a weapon rack now. Unlocks fame upgrades.",
         },
     },
@@ -299,7 +297,7 @@ addLayer("m", {
             unlocked() {return hasUpgrade(this.layer, 12)},
             effect() {
                 let wom = player.points.add(1).max(1)
-                wom = Decimal.log10(wom).pow(2).add(2)
+                wom = Decimal.log10(wom).pow(1.5).add(4)
                 return wom
             },
             effectDisplay(){
