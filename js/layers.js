@@ -17,7 +17,7 @@ addLayer("v", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent() {
         let preup4 = new Decimal(0.5)
-        if (hasUpgrade("m", 14)) preup4 = new Decimal(0.51)
+        if (hasUpgrade("m", 14)) preup4 = preup4.add(upgradeEffect("m", 14))
         return preup4;
     }, // Prestige currency exponent
     row: 0, // Row the layer is in on the tree (0 is the first row)
@@ -310,11 +310,13 @@ addLayer("m", {
         },
         14: {
             title: "Entrance Fees",
-            description: "Decreases coin exponent (get more coins from fame reset) based on donations.",
+            description: "Get more coins from fame reset.",
             cost: new Decimal(10),
             unlocked() {return hasUpgrade(this.layer, 13)},
-            effect() {
-            }
+            effect: 0.01,
+            effectDisplay(){
+            return "+" + format(0.01)
+            },
         },
     },
 })
