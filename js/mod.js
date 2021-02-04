@@ -52,6 +52,7 @@ function getPointGen() {
 	gain = gain.times(player.m.points)
 	if (hasUpgrade("m", 11)) gain = gain.add(upgradeEffect("m", 11))
 	if (hasUpgrade("m", 12)) gain = gain.times(upgradeEffect("m", 12))
+	if (hasUpgrade("m", 13)) gain = gain.times(upgradeEffect("m", 13))
 	return gain
 } // Once canGenPoints turns on, fame gain is 0.2*current number of donations. It can be increased by upgrades.
 
