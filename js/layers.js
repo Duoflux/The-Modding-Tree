@@ -15,7 +15,11 @@ addLayer("v", {
     baseResource: "fame", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
+    exponent() {
+        let preup4 = new Decimal(0.5)
+        if (hasUpgrade("m", 14)) preup4 = new Decimal(0.51)
+        return preup4;
+    }, // Prestige currency exponent
     row: 0, // Row the layer is in on the tree (0 is the first row)
     buyables: {
         rows: 1,
@@ -297,7 +301,7 @@ addLayer("m", {
             unlocked() {return hasUpgrade(this.layer, 12)},
             effect() {
                 let wom = player.points.add(1).max(1)
-                wom = Decimal.log10(wom).pow(1.5).add(4)
+                wom = Decimal.log10(wom).pow(1.2).add(4)
                 return wom
             },
             effectDisplay(){
