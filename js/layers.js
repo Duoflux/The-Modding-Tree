@@ -310,7 +310,7 @@ addLayer("m", {
         },
         14: {
             title: "Entrance Fees",
-            description: "Decreases coin exponent (get more coins from fame reset) based on donations. DOESN'T WORK YET.",
+            description: "Decreases coin exponent (get more coins from fame reset) based on donations.",
             cost: new Decimal(10),
             unlocked() {return hasUpgrade(this.layer, 13)},
             effect() {
