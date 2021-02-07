@@ -350,7 +350,6 @@ addLayer("i", {
     softcap: new Decimal(1e100),
     softcapPower: new Decimal(0.5),
     canBuyMax() {},
-    gainMult() {},
     gainExp() {return new Decimal(1)},
     row: 1,
     milestones: {
