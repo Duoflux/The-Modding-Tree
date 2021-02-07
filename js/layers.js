@@ -113,6 +113,7 @@ addLayer("f", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        bestBuyable: new Decimal(0),
     }},
     color: "#3C7E82",
     layerShown() {return getBuyableAmount("v",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
@@ -122,7 +123,7 @@ addLayer("f", {
     },
     resource: "crafted swords", // Name of prestige currency
     baseResource: "coins", // Name of resource prestige is based on
-    baseAmount() {return player.f.points}, // Get the current amount of baseResource
+    baseAmount() {return new Decimal(player.f.points)}, // Get the current amount of baseResource
     exponent: 0.5, // Prestige currency exponent
     row: 1, // Row the layer is in on the tree (0 is the first row)
     buyables: {
@@ -157,6 +158,9 @@ addLayer("f", {
                 player[this.layer].points = player[this.layer].points.add(1)
                 player[this.layer].best = player[this.layer].best.add(1)
                 player[this.layer].total = player[this.layer].total.add(1)
+                let bestCopper = new Decimal(0)
+                if (getBuyableAmount(this.layer, this.id).gte(bestCopper))
+                    bestCopper = getBuyableAmount(this.layer, this.id)
             },
             // Subtracts the cost from the other buyable.
             // Then adds 1 to this buyable.
@@ -197,6 +201,9 @@ addLayer("f", {
                 player[this.layer].points = player[this.layer].points.add(1)
                 player[this.layer].best = player[this.layer].best.add(1)
                 player[this.layer].total = player[this.layer].total.add(1)
+                let bestTin = new Decimal(0)
+                if (getBuyableAmount(this.layer, this.id).gte(bestTin))
+                    bestTin = getBuyableAmount(this.layer, this.id)
             },
             sellOne() {
                 let amount = getBuyableAmount(this.layer, this.id)
@@ -219,14 +226,10 @@ addLayer("m", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
-        buyables: {}, // You don't actually have to initialize this one
-        beep: false,
     }},
     color: "#C2C0BB",
     effectDescription() {return "Each donation increases fame gain by X per second. Pester the dev to find out how to display X."},
-    layerShown() {
-        return true
-    },
+    layerShown() {return true},
     update() {
         if (new Decimal(getBuyableAmount("f",11)).gte(1))
         if (new Decimal(getBuyableAmount("f",12)).gte(1))
@@ -241,9 +244,7 @@ addLayer("m", {
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
     baseAmount() {return new Decimal(getBuyableAmount("f",11)).plus(getBuyableAmount("f",12))}, // Get the current amount of baseResource
-    getCost() {
-        return getResetGain(this.layer);
-    },
+    getCost() {return getResetGain(this.layer);},
     doReset(layer) {
         // doReset is called whenever a layer of higher or equal row resets.
         // layer is the id of the layer that reset.
@@ -267,9 +268,7 @@ addLayer("m", {
         if (hasUpgrade(this.layer, 120)) mult = mult.times(upgradeEffect(this.layer, 120))
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
-    },
+    gainExp() {return new Decimal(1)}, // Calculate the exponent on main currency from bonuses
     row: 1, // Row the layer is in on the tree (0 is the first row)
     milestones: {
         0: {requirementDescription: "1 donation",
@@ -315,8 +314,49 @@ addLayer("m", {
             unlocked() {return hasUpgrade(this.layer, 13)},
             effect: 0.01,
             effectDisplay(){
-            return "+" + format(0.01)
+            return "+" + format(0.01) + "exponent to fame reset."
             },
+        },
+    },
+})
+addLayer("i", {
+    layer: "i", // This is assigned automatically, both to the layer and all upgrades, etc. Shown here so you know about it
+    name: "Factory", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "I", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 3, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+    }},
+    color: "#B25029",
+    layerShown() {return true},
+    update() {
+        if (player.f.best.gte(50))
+        player[this.layer].unlocked = true
+    },
+    update(diff) {
+        if (tmp.v.buyables[11].canAfford&&hasMilestone(i, 0))
+        {layers.v.buyables[11].buy()}},
+    tooltipLocked() {return "Craft 50 swords across all resets. CURRENTLY UNDER CONSTRUCTION, ALMOST NOTHING INSIDE YET"},
+    requires: new Decimal(10),
+    resource: "Industrium",
+    baseResource: "coins",
+    baseAmount() {return new Decimal(player.v.points)},
+    getCost() {return getResetGain(this.layer);},
+    type: "normal",
+    exponent: 0.5,
+    softcap: new Decimal(1e100),
+    softcapPower: new Decimal(0.5),
+    canBuyMax() {},
+    gainMult() {},
+    gainExp() {return new Decimal(1)},
+    row: 1,
+    milestones: {
+        0: {requirementDescription: "5 Industrium",
+        done() {return player[this.layer].best.gte(5)},
+        effectDescription: "Automates buying copper",
         },
     },
 })
