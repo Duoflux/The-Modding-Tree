@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.1",
-	name: "Now the museum has UPGRADES!",
+	num: "0.3",
+	name: "Factory Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -24,8 +24,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.2</h3><br>
 		- Added the museum. Now you can get more famous by dumping swords on some hapless shmuck.
 	<h3>v0.2.1</h3><br>
-		- Adding upgrades to the museum. Now you can get EVEN MORE famous!`
-
+		- Adding upgrades to the museum. Now you can get EVEN MORE famous!
+	<h3>v0.3</h3><br>
+		- Getting tired of clicking to make swords? Just build a factory and automate them!`
 
 let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
 
