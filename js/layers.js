@@ -332,13 +332,12 @@ addLayer("i", {
     }},
     color: "#B25029",
     layerShown() {return true},
-    update() {
-        if (player.f.best.gte(50))
-        player[this.layer].unlocked = true
-    },
     update(diff) {
+        if (player.f.best.gte(50))
+        {player[this.layer].unlocked = true};
         if (tmp.v.buyables[11].canAfford&&hasMilestone("i", 0))
-        {layers.v.buyables[11].buy()}},
+        {layers.v.buyables[11].buy()}
+    },
     tooltipLocked() {return "Craft 50 swords across all resets. CURRENTLY UNDER CONSTRUCTION, ALMOST NOTHING INSIDE YET"},
     requires: new Decimal(10),
     resource: "Industrium",
