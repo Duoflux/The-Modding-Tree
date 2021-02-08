@@ -331,11 +331,8 @@ addLayer("i", {
         total: new Decimal(0),
     }},
     color: "#B25029",
-    layerShown() {return true},
-    update() {
-        if (player.f.best.gte(50))
-        player[this.layer].unlocked = true
-    },
+    layerShown() {return (player.f.best.gte(50)||player[this.layer].unlocked)},
+    update() {player[this.layer].unlocked = player[this.layer].unlocked || player.f.best.gte(50)},
     automation(diff) {
         if (tmp.v.buyables[11].canAfford&&hasMilestone("i", 0))
         {layers.v.buyables[11].buy()}
