@@ -332,7 +332,7 @@ addLayer("i", {
     }},
     color: "#B25029",
     layerShown() {return true},
-    unlocked() {return player.f.best.gte(50)},
+    update() {player[this.layer].unlocked = player[this.layer].unlocked || player.f.best.gte(50);},
     automation(diff) {
         if (tmp.v.buyables[11].canAfford&&hasMilestone("i", 0))
         {layers.v.buyables[11].buy()}
