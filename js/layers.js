@@ -332,16 +332,22 @@ addLayer("i", {
     }},
     color: "#B25029",
     layerShown() {return true},
-    update() {player[this.layer].unlocked = player[this.layer].unlocked || player.f.best.gte(50);},
-    automation(diff) {
+    automate(diff) {
         if (tmp.v.buyables[11].canAfford&&hasMilestone("i", 0))
         {layers.v.buyables[11].buy()}
     },
     tooltipLocked() {return "Craft 50 swords across all resets. CURRENTLY UNDER CONSTRUCTION, ALMOST NOTHING INSIDE YET"},
     requires: new Decimal(10),
+    requires(){
+        if (!player[this.layer].unlocked){return new Decimal(50)}
+        else {return new Decimal(10)}
+    },
     resource: "Industrium",
     baseResource: "coins",
-    baseAmount() {return new Decimal(player.v.points)},
+    baseAmount(){
+        if (!player[this.layer].unlocked){return player.f.best} 
+        else {return player.v.points}
+    },
     getCost() {return getResetGain(this.layer);},
     type: "normal",
     exponent: 0.5,
