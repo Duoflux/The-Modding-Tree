@@ -337,7 +337,6 @@ addLayer("i", {
         {layers.v.buyables[11].buy()}
     },
     tooltipLocked() {return "Craft 50 swords across all resets. CURRENTLY UNDER CONSTRUCTION, ALMOST NOTHING INSIDE YET"},
-    requires: new Decimal(10),
     requires(){
         if (!player[this.layer].unlocked){return new Decimal(50)}
         else {return new Decimal(10)}
