@@ -12,11 +12,11 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3",
-	name: "Factory Update",
+	num: "0.3.1",
+	name: "The Bronze Age (FACTORY RECALIBRATIONS REQUIRED)",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
+let changelog = ```<h1>Changelog:</h1><br>
 	<h3>v0.0</h3><br>
 		- The beginning (of my frustration.)<br>
 	<h3>v0.0.1</h3><br>
@@ -26,7 +26,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.2.1</h3><br>
 		- Adding upgrades to the museum. Now you can get EVEN MORE famous!
 	<h3>v0.3</h3><br>
-		- Getting tired of clicking to make swords? Just build a factory and automate them!`
+		- Getting tired of clicking to make swords? Just build a factory and automate them!
+	<h3>v0.3.1</h3><br>
+		- Oops, someone tried to shove copper and tin in the same factory port. Bronze is good, but now the factory needs to be recalibrated.```
 
 let winText = `You are truly both a blacksmith and a badass. You have reached the end of your journey for now...`
 
