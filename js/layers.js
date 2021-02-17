@@ -23,7 +23,7 @@ addLayer("v", {
     row: 0, // Row the layer is in on the tree (0 is the first row)
     buyables: {
         rows: 1,
-        cols: 2,
+        cols: 3,
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
             color: "#3C7E82",
@@ -159,7 +159,7 @@ addLayer("f", {
     row: 1, // Row the layer is in on the tree (0 is the first row)
     buyables: {
         rows: 1,
-        cols: 2,
+        cols: 3,
         11: {
             title: "Copper Sword", // Optional, displayed at the top in a larger font
             cost() {return new Decimal(2)}, // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -443,26 +443,32 @@ addLayer("i", {
         0: {requirementDescription: "5 Industrium",
         done() {return player[this.layer].best.gte(5)},
         effectDescription: "Automates buying copper",
+        toggles: ["i","automate"],
         },
         1: {requirementDescription: "10 Industrium",
         done() {return player[this.layer].best.gte(10)},
         effectDescription: "Automates buying tin",
+        toggles: ["i","automate"],
         },
         2: {requirementDescription: "15 Industrium",
         done() {return player[this.layer].best.gte(15)},
         effectDescription: "Automates buying bronze",
+        toggles: ["i","automate"],
         },
         3: {requirementDescription: "25 Industrium",
         done() {return player[this.layer].best.gte(25)},
         effectDescription: "Automates buying copper swords",
+        toggles: ["i","automate"],
         },
         4: {requirementDescription: "50 Industrium",
         done() {return player[this.layer].best.gte(50)},
         effectDescription: "Automates buying bronze swords",
+        toggles: ["i","automate"],
         },
         5: {requirementDescription: "100 Industrium",
         done() {return player[this.layer].best.gte(50)},
         effectDescription: "Automates buying tin swords",
+        toggles: ["i","automate"],
         },
     },
 })
