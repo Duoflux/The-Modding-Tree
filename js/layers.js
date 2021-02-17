@@ -99,24 +99,24 @@ addLayer("v", {
         13: {
             title: "Bronze",
             color: "#CA7500",
-            cost(x=player[this.layer].buyables[this.id]) {
-                getBuyableAmount(this.layer, this.id)
+            cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
+                getBuyableAmount(this.layer, this.id);
                 return new Decimal(15)
             },
-            effect(x=player[this.layer].buyables[this.id]) {
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 eff.first = Decimal.add(1)
                 if (x.gte(1001)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
                 return eff;
             },
-            display(x=player[this.layer].buyables[this.id]) {
+            display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
                 Amount: " + x + "\n\
                 Adds + " + format(data.effect.first) + " bronze; 2 bronze can be Crafted in the Forge"
             },
-            unlocked() {return player[this.layer].unlocked},
+            unlocked() {return player[this.layer].unlocked}, 
             canAfford() {return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
             buy() { 
                 cost = tmp[this.layer].buyables[this.id].cost
