@@ -26,6 +26,7 @@ addLayer("v", {
         cols: 2,
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
+            color: "#3C7E82",
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(1)
@@ -33,21 +34,18 @@ addLayer("v", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 eff.first = Decimal.add(1)
-            
-                if (x.gte(51)) eff.second = x.pow(0.8)
+                if (x.gte(1001)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
                 return eff;
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted "
+                Amount: " + x + "\n\
+                Adds + " + format(data.effect.first) + " copper; 2 copper can be Crafted in the Forge"
             },
-            unlocked() { return player[this.layer].unlocked }, 
-            canAfford() {
-                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
-            },
+            unlocked() {return player[this.layer].unlocked}, 
+            canAfford() {return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
             buy() { 
                 cost = tmp[this.layer].buyables[this.id].cost
                 player[this.layer].points = player[this.layer].points.sub(cost)
@@ -72,21 +70,54 @@ addLayer("v", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = {}
                 eff.first = Decimal.add(1)
-            
-                if (x.gte(51)) eff.second = x.pow(0.8)
+                if (x.gte(1001)) eff.second = x.pow(0.8)
                 else eff.second = x.times(-1).pow(0.8).times(-1)
                 return eff;
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
                 if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted "
+                Amount: " + x + "\n\
+                Adds + " + format(data.effect.first) + " tin; 2 tin can be Crafted in the Forge"
             },
-            unlocked() { return player[this.layer].unlocked }, 
-            canAfford() {
-                return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
+            unlocked() {return player[this.layer].unlocked}, 
+            canAfford() {return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
+            buy() { 
+                cost = tmp[this.layer].buyables[this.id].cost
+                player[this.layer].points = player[this.layer].points.sub(cost)
+                player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
             },
+            buyMax() {}, // You'll have to handle this yourself if you want
+            style: {'height':'222px'},
+            sellOne() {
+                let amount = getBuyableAmount(this.layer, this.id)
+                if (amount.lte(0)) return // Only sell one if there is at least one
+                setBuyableAmount(this.layer, this.id, amount.sub(1))
+                player[this.layer].points = player[this.layer].points.add(this.cost)
+            },
+        },
+        13: {
+            title: "Bronze",
+            color: "#CA7500",
+            cost(x=player[this.layer].buyables[this.id]) {
+                getBuyableAmount(this.layer, this.id)
+                return new Decimal(15)
+            },
+            effect(x=player[this.layer].buyables[this.id]) {
+                let eff = {}
+                eff.first = Decimal.add(1)
+                if (x.gte(1001)) eff.second = x.pow(0.8)
+                else eff.second = x.times(-1).pow(0.8).times(-1)
+                return eff;
+            },
+            display(x=player[this.layer].buyables[this.id]) {
+                let data = tmp[this.layer].buyables[this.id]
+                if (x.gte(0)) return "Cost: " + format(data.cost) + " coins\n\
+                Amount: " + x + "\n\
+                Adds + " + format(data.effect.first) + " bronze; 2 bronze can be Crafted in the Forge"
+            },
+            unlocked() {return player[this.layer].unlocked},
+            canAfford() {return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
             buy() { 
                 cost = tmp[this.layer].buyables[this.id].cost
                 player[this.layer].points = player[this.layer].points.sub(cost)
@@ -115,7 +146,7 @@ addLayer("f", {
         total: new Decimal(0),
         bestBuyable: new Decimal(0),
     }},
-    color: "#3C7E82",
+    color: "#646464",
     layerShown() {return getBuyableAmount("v",11).gte(2) || player[this.layer].unlocked}, // Can be a function that takes requirement increases into account
     update() {
         if (getBuyableAmount("v",11).gte(2))
@@ -214,6 +245,46 @@ addLayer("f", {
                 player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
             },
         },
+        13: {
+            title: "Bronze Sword",
+            cost(x=player[this.layer].buyables[this.id]) {
+                getBuyableAmount(this.layer, this.id);
+                return new Decimal(2)
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = Decimal.add(1)
+                return eff;
+            },
+            display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                if (new Decimal(x).gte(0)) return "Cost: " + format(data.cost) + " tin\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect) + " Bronze Sword; Sell for coins or Improve to increase value" + "\n\
+                Value: " + new Decimal(20) + " coins"
+            },
+            unlocked() { return player[this.layer].unlocked },
+            canAfford() {
+                return getBuyableAmount("v",12).gte(this.cost());
+            },
+            buy() {
+                setBuyableAmount("v",13, getBuyableAmount("v",13).sub(this.cost()))
+                setBuyableAmount(this.layer, this.id, new Decimal(getBuyableAmount(this.layer, this.id)).add(1))
+                player[this.layer].points = player[this.layer].points.add(1)
+                player[this.layer].best = player[this.layer].best.add(1)
+                player[this.layer].total = player[this.layer].total.add(1)
+                let bestTin = new Decimal(0)
+                if (getBuyableAmount(this.layer, this.id).gte(bestTin))
+                    bestTin = getBuyableAmount(this.layer, this.id)
+            },
+            sellOne() {
+                let amount = getBuyableAmount(this.layer, this.id)
+                if (amount.lte(0)) return // Only sell one if there is at least one
+                setBuyableAmount(this.layer, this.id, amount.sub(1))
+                player.v.points = player.v.points.add(new Decimal(30))
+                player[this.layer].points = player[this.layer].points.sub(1)
+                player[this.layer].best = player[this.layer].best.max(player[this.layer].points)
+            },
+        }
     },
 })
 addLayer("m", {
@@ -233,17 +304,19 @@ addLayer("m", {
     update() {
         if (new Decimal(getBuyableAmount("f",11)).gte(1))
         if (new Decimal(getBuyableAmount("f",12)).gte(1))
+        if (new Decimal(getBuyableAmount("f",13)).gte(1))
         player[this.layer].unlocked = true
     },
     onPrestige() {
         player.f.buyables[11]=0;
         player.f.buyables[12]=0;
+        player.f.buyables[13]=0;
     },
     tooltipLocked() {return "Craft one sword"},
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "donations", // Name of prestige currency
     baseResource: "crafted swords", // Name of resource prestige is based on
-    baseAmount() {return new Decimal(getBuyableAmount("f",11)).plus(getBuyableAmount("f",12))}, // Get the current amount of baseResource
+    baseAmount() {return new Decimal(getBuyableAmount("f",11)).plus(getBuyableAmount("f",12)).plus(getBuyableAmount("f",13))}, // Get the current amount of baseResource
     getCost() {return getResetGain(this.layer);},
     doReset(layer) {
         // doReset is called whenever a layer of higher or equal row resets.
@@ -252,7 +325,8 @@ addLayer("m", {
             // Only when this layer is reset.
             player.f.points = player.f.points.sub(tmp[this.layer].getCost);
             setBuyableAmount("f",11,0);
-            setBuyableAmount("f",12,0); // Set the number of buyables to 0.
+            setBuyableAmount("f",12,0);
+            setBuyableAmount("f",13,0); // Set the number of buyables to 0.
         }
     },
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
@@ -333,10 +407,20 @@ addLayer("i", {
     color: "#B25029",
     layerShown() {return true},
     automate(diff) {
-        if (tmp.v.buyables[11].canAfford&&hasMilestone("i", 0))
+        if (tmp.v.buyables[11].canAfford&&hasMilestone("i",0))
         {layers.v.buyables[11].buy()}
+        if (tmp.v.buyables[12].canAfford&&hasMilestone("i",1))
+        {layers.v.buyables[12].buy()}
+        if (tmp.v.buyables[13].canAfford&&hasMilestone("i",2))
+        {layers.v.buyables[13].buy()}
+        if (tmp.f.buyables[11].canAfford&&hasMilestone("i",3))
+        {layers.f.buyables[11].buy()}
+        if (tmp.f.buyables[12].canAfford&&hasMilestone("i",4))
+        {layers.f.buyables[12].buy()}
+        if (tmp.f.buyables[13].canAfford&&hasMilestone("i",5))
+        {layers.f.buyables[13].buy()}
     },
-    tooltipLocked() {return "Craft 50 swords across all resets. CURRENTLY UNDER CONSTRUCTION, ALMOST NOTHING INSIDE YET"},
+    tooltipLocked() {return "Craft 50 swords across all resets. RECALIBRATIONS REQUIRED"},
     requires(){
         if (!player[this.layer].unlocked){return new Decimal(50)}
         else {return new Decimal(10)}
@@ -359,6 +443,26 @@ addLayer("i", {
         0: {requirementDescription: "5 Industrium",
         done() {return player[this.layer].best.gte(5)},
         effectDescription: "Automates buying copper",
+        },
+        1: {requirementDescription: "10 Industrium",
+        done() {return player[this.layer].best.gte(10)},
+        effectDescription: "Automates buying tin",
+        },
+        2: {requirementDescription: "15 Industrium",
+        done() {return player[this.layer].best.gte(15)},
+        effectDescription: "Automates buying bronze",
+        },
+        3: {requirementDescription: "25 Industrium",
+        done() {return player[this.layer].best.gte(25)},
+        effectDescription: "Automates buying copper swords",
+        },
+        4: {requirementDescription: "50 Industrium",
+        done() {return player[this.layer].best.gte(50)},
+        effectDescription: "Automates buying bronze swords",
+        },
+        5: {requirementDescription: "100 Industrium",
+        done() {return player[this.layer].best.gte(50)},
+        effectDescription: "Automates buying tin swords",
         },
     },
 })
