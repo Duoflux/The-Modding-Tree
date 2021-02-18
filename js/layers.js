@@ -27,7 +27,8 @@ addLayer("v", {
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
             style: {
-                backgroundColor: "#3C7E82"},
+                backgroundColor: "#3C7E82",
+                'height':'222px'},
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(1)
@@ -53,7 +54,6 @@ addLayer("v", {
                 player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
             },
             buyMax() {}, // You'll have to handle this yourself if you want
-            style: {'height':'222px'},
             sellOne() {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
@@ -64,7 +64,8 @@ addLayer("v", {
         12: {
             title: "Tin",
             style: {
-                backgroundColor: "#6B6B63"},
+                backgroundColor: "#6B6B63",
+                'height':'222px'},
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(8)
@@ -90,7 +91,6 @@ addLayer("v", {
                 player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
             },
             buyMax() {}, // You'll have to handle this yourself if you want
-            style: {'height':'222px'},
             sellOne() {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
@@ -101,7 +101,8 @@ addLayer("v", {
         13: {
             title: "Bronze",
             style: {
-                backgroundColor: "#CA7500"},
+                backgroundColor: "#CA7500",
+                'height':'222px'},
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(15)
@@ -127,7 +128,6 @@ addLayer("v", {
                 player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
             },
             buyMax() {}, // You'll have to handle this yourself if you want
-            style: {'height':'222px'},
             sellOne() {
                 let amount = getBuyableAmount(this.layer, this.id)
                 if (amount.lte(0)) return // Only sell one if there is at least one
