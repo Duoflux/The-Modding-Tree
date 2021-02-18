@@ -407,17 +407,17 @@ addLayer("i", {
     color: "#B25029",
     layerShown() {return true},
     automate(diff) {
-        if (layers.v.buyables[11].canAfford&&hasMilestone("i",0))
+        if (layers.v.buyables[11].canAfford()&&hasMilestone("i",0))
         {layers.v.buyables[11].buy()}
-        if (layers.v.buyables[12].canAfford&&hasMilestone("i",1))
+        if (layers.v.buyables[12].canAfford()&&hasMilestone("i",1))
         {layers.v.buyables[12].buy()}
-        if (layers.v.buyables[13].canAfford&&hasMilestone("i",2))
+        if (layers.v.buyables[13].canAfford()&&hasMilestone("i",2))
         {layers.v.buyables[13].buy()}
-        if (layers.f.buyables[11].canAfford&&hasMilestone("i",3))
+        if (layers.f.buyables[11].canAfford()&&hasMilestone("i",3))
         {layers.f.buyables[11].buy()}
-        if (layers.f.buyables[12].canAfford&&hasMilestone("i",4))
+        if (layers.f.buyables[12].canAfford()&&hasMilestone("i",4))
         {layers.f.buyables[12].buy()}
-        if (layers.f.buyables[13].canAfford&&hasMilestone("i",5))
+        if (layers.f.buyables[13].canAfford()&&hasMilestone("i",5))
         {layers.f.buyables[13].buy()}
     },
     tooltipLocked() {return "Earn 250 coins. RECALIBRATIONS REQUIRED"},
