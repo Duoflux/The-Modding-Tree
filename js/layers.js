@@ -26,7 +26,8 @@ addLayer("v", {
         cols: 3,
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
-            color: "#3C7E82",
+            style: {
+                backgroundColor: "#3C7E82"},
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(1)
@@ -62,7 +63,8 @@ addLayer("v", {
         },
         12: {
             title: "Tin",
-            color: "#6B6B63",
+            style: {
+                backgroundColor: "#6B6B63"},
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(8)
@@ -98,7 +100,8 @@ addLayer("v", {
         },
         13: {
             title: "Bronze",
-            color: "#CA7500",
+            style: {
+                backgroundColor: "#CA7500"},
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(15)
@@ -299,7 +302,7 @@ addLayer("m", {
         total: new Decimal(0),
     }},
     color: "#C2C0BB",
-    effectDescription() {return "Each donation increases fame gain by X per second. Pester the dev to find out how to display X."},
+    effectDescription() {return "Each donation increases fame gain by " + format(new Decimal(0.2)) + "fame per second."},
     layerShown() {return true},
     update() {
         if (new Decimal(getBuyableAmount("f",11)).gte(1))
@@ -460,7 +463,7 @@ addLayer("i", {
         toggles: [["i","automate5"]],
         },
         5: {requirementDescription: "100 Industrium",
-        done() {return player[this.layer].best.gte(50)},
+        done() {return player[this.layer].best.gte(100)},
         effectDescription: "Automates buying tin swords",
         toggles: [["i","automate6"]],
         },
