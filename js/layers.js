@@ -407,17 +407,17 @@ addLayer("i", {
     color: "#B25029",
     layerShown() {return true},
     automate(diff) {
-        if (layers.v.buyables[11].canAfford()&&hasMilestone("i",0))
+        if (layers.v.buyables[11].canAfford()&&player.i.automate1)
         {layers.v.buyables[11].buy()}
-        if (layers.v.buyables[12].canAfford()&&hasMilestone("i",1))
+        if (layers.v.buyables[12].canAfford()&&player.i.automate2)
         {layers.v.buyables[12].buy()}
-        if (layers.v.buyables[13].canAfford()&&hasMilestone("i",2))
+        if (layers.v.buyables[13].canAfford()&&player.i.automate3)
         {layers.v.buyables[13].buy()}
-        if (layers.f.buyables[11].canAfford()&&hasMilestone("i",3))
+        if (layers.f.buyables[11].canAfford()&&player.i.automate4)
         {layers.f.buyables[11].buy()}
-        if (layers.f.buyables[12].canAfford()&&hasMilestone("i",4))
+        if (layers.f.buyables[12].canAfford()&&player.i.automate5)
         {layers.f.buyables[12].buy()}
-        if (layers.f.buyables[13].canAfford()&&hasMilestone("i",5))
+        if (layers.f.buyables[13].canAfford()&&player.i.automate6)
         {layers.f.buyables[13].buy()}
     },
     tooltipLocked() {return "Earn 250 coins. RECALIBRATIONS REQUIRED"},
@@ -437,32 +437,32 @@ addLayer("i", {
         0: {requirementDescription: "5 Industrium",
         done() {return player[this.layer].best.gte(5)},
         effectDescription: "Automates buying copper",
-        toggles: [["i","automate"]],
+        toggles: [["i","automate1"]],
         },
         1: {requirementDescription: "10 Industrium",
         done() {return player[this.layer].best.gte(10)},
         effectDescription: "Automates buying tin",
-        toggles: [["i","automate"]],
+        toggles: [["i","automate2"]],
         },
         2: {requirementDescription: "15 Industrium",
         done() {return player[this.layer].best.gte(15)},
         effectDescription: "Automates buying bronze",
-        toggles: [["i","automate"]],
+        toggles: [["i","automate3"]],
         },
         3: {requirementDescription: "25 Industrium",
         done() {return player[this.layer].best.gte(25)},
         effectDescription: "Automates buying copper swords",
-        toggles: [["i","automate"]],
+        toggles: [["i","automate4"]],
         },
         4: {requirementDescription: "50 Industrium",
         done() {return player[this.layer].best.gte(50)},
         effectDescription: "Automates buying bronze swords",
-        toggles: [["i","automate"]],
+        toggles: [["i","automate5"]],
         },
         5: {requirementDescription: "100 Industrium",
         done() {return player[this.layer].best.gte(50)},
         effectDescription: "Automates buying tin swords",
-        toggles: [["i","automate"]],
+        toggles: [["i","automate6"]],
         },
     },
 })
