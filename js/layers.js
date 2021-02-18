@@ -27,7 +27,7 @@ addLayer("v", {
         11: {
             title: "Copper", // Optional, displayed at the top in a larger font
             style() {
-                if (canAfford(this.layer, this.id))
+                if (this.canAfford(this.layer, this.id))
                 return {backgroundColor: "#3C7E82"}
             },
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -65,7 +65,7 @@ addLayer("v", {
         12: {
             title: "Tin",
             style() {
-                if (canAfford(this.layer, this.id))
+                if (this.canAfford(this.layer, this.id))
                 return {backgroundColor: "#6B6B63"}
             },
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -103,7 +103,7 @@ addLayer("v", {
         13: {
             title: "Bronze",
             style() {
-                if (canAfford(this.layer, this.id))
+                if (this.canAfford(this.layer, this.id))
                 return {backgroundColor: "#CA7500"}
             },
             cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
@@ -169,7 +169,7 @@ addLayer("f", {
         11: {
             title: "Copper Sword", // Optional, displayed at the top in a larger font
             style() {
-                if (canAfford(this.layer, this.id))
+                if (this.canAfford(this.layer, this.id))
                 return {backgroundColor: "#3C7E82"}},
             cost() {return new Decimal(2)}, // cost for buying xth buyable, can be an object if there are multiple currencies
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -217,7 +217,7 @@ addLayer("f", {
         12: {
             title: "Tin Sword",
             style() {
-                if (canAfford(this.layer,this.id))
+                if (this.canAfford(this.layer,this.id))
                 return {backgroundColor: "#6B6B63"}
             },
             cost(x=player[this.layer].buyables[this.id]) {
@@ -261,7 +261,7 @@ addLayer("f", {
         13: {
             title: "Bronze Sword",
             style() {
-                if (canAfford(this.layer,this.id))
+                if (this.canAfford(this.layer,this.id))
                 return {backgroundColor: "#CA7500"}
             },
             cost(x=player[this.layer].buyables[this.id]) {
