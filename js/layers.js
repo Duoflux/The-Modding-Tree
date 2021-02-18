@@ -165,6 +165,8 @@ addLayer("f", {
         cols: 3,
         11: {
             title: "Copper Sword", // Optional, displayed at the top in a larger font
+            style: {
+                backgroundColor: "#3C7E82"},
             cost() {return new Decimal(2)}, // cost for buying xth buyable, can be an object if there are multiple currencies
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = Decimal.add(1)
@@ -210,6 +212,8 @@ addLayer("f", {
         },
         12: {
             title: "Tin Sword",
+            style: {
+                backgroundColor: "#6B6B63"},
             cost(x=player[this.layer].buyables[this.id]) {
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(2)
@@ -250,6 +254,8 @@ addLayer("f", {
         },
         13: {
             title: "Bronze Sword",
+            style: {
+                backgroundColor: "#CA7500"},
             cost(x=player[this.layer].buyables[this.id]) {
                 getBuyableAmount(this.layer, this.id);
                 return new Decimal(2)
