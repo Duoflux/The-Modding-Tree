@@ -274,14 +274,14 @@ addLayer("f", {
             },
             display(x=player[this.layer].buyables[this.id]) { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
-                if (new Decimal(x).gte(0)) return "Cost: " + format(data.cost) + " tin\n\
+                if (new Decimal(x).gte(0)) return "Cost: " + format(data.cost) + " bronze\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Adds + " + format(data.effect) + " Bronze Sword; Sell for coins or Improve to increase value" + "\n\
                 Value: " + new Decimal(20) + " coins"
             },
             unlocked() { return player[this.layer].unlocked },
             canAfford() {
-                return getBuyableAmount("v",12).gte(this.cost());
+                return getBuyableAmount("v",13).gte(this.cost());
             },
             buy() {
                 setBuyableAmount("v",13, getBuyableAmount("v",13).sub(this.cost()))
